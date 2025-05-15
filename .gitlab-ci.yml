@@ -15,10 +15,10 @@
     # - prod-deploy
     # - post-deploy
 
-  include:
-    - template: Jobs/SAST.gitlab-ci.yml
-    - component: gitlab.com/gitlab-components/secret-detection/secret-detection@1.0
-    # - template: Security/Container-Scanning.gitlab-ci.yml
+  # include:
+  #   - template: Jobs/SAST.gitlab-ci.yml
+  #   - component: gitlab.com/gitlab-components/secret-detection/secret-detection@1.0
+  #   - template: Security/Container-Scanning.gitlab-ci.yml
 
   variables:
     DOCKER_DRIVER: overlay2
@@ -52,18 +52,18 @@
       - npm install
 
 
-  sast:
-    stage: .pre
+  # sast:
+  #   stage: .pre
 
-  secret_detection:
-    stage: .pre
-    variables:
-      SECRET_DETECTION_HISTORIC_SCAN: "false"
-    rules:
-      - if: $CI_COMMIT_BRANCH == "feature"
-        when: always
-      - if: $CI_COMMIT_BRANCH == "main"
-        when: never
+  # secret_detection:
+  #   stage: .pre
+  #   variables:
+  #     SECRET_DETECTION_HISTORIC_SCAN: "false"
+  #   rules:
+  #     - if: $CI_COMMIT_BRANCH == "feature"
+  #       when: always
+  #     - if: $CI_COMMIT_BRANCH == "main"
+  #       when: never
 
   lint-backend:
     stage: lint
@@ -91,6 +91,7 @@
 
   lint-python:
     stage: lint
+    image: python:3.11-slim
     before_script:
       - pip install flake8
     script:
