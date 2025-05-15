@@ -69,10 +69,10 @@
     stage: lint
     extends: .prepare_nodejs_environment
     script:
-      - npx eslint "**/*.js" > ../lint/eslint.txt || true
+      - npx eslint "**/*.js" > /eslint.txt || true
     artifacts:
       paths:
-        - lint/eslint.txt
+        - eslint.txt
       when: always
 
 
