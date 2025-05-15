@@ -1,10 +1,10 @@
 const API_BASE = "http://localhost:3000";
  
 // Validate Password on the Client Side
-function validatePassword(password) {
-    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
-    return regex.test(password);
-}
+// function validatePassword(password) {
+//     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+//     return regex.test(password);
+// }
 // Handle Registration
 if (document.getElementById("registerForm")) {
     document.getElementById("registerForm").addEventListener("submit", async (e) => {
@@ -59,7 +59,7 @@ if (document.getElementById("loginForm")) {
             } else {
                 loginMessage.style.color = "red";
                 loginMessage.textContent = data.error || "Login failed. Please try again.";            }
-        } catch (error) {
+        } catch (_error) {
             loginMessage.style.color = "red";
             loginMessage.textContent = "An error occurred while logging in. Please try again.";        }
     });
