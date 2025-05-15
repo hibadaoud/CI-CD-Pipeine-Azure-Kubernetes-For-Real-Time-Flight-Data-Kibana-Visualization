@@ -11,4 +11,4 @@ kafka/.env
 web
 kafka/.env
 Jenkinsfile
-lint
+node_modules
