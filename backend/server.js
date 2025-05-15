@@ -25,7 +25,7 @@ mongoose.connect(
     }
 )
 .then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
+.catch(_err => console.error('MongoDB connection error:', _err));
 
 // JWT Secret Key
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -59,11 +59,12 @@ app.post('/register', async (req, res) => {
     // Hash the password and save the user
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ email, password: hashedPassword });
-
+    
     try {
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {
+        void err; 
         res.status(500).json({ error: 'Error registering user' });
     }
 });
@@ -87,10 +88,6 @@ app.post('/login', async (req, res) => {
     // Generate JWT
     const token = jwt.sign({ email: user.email }, SECRET_KEY);
     res.json({ token, message: 'Login successful ' });
-
-
-    
-
 });
 
 // 3. Middleware for Authentication
@@ -100,8 +97,8 @@ const authenticateToken = (req, res, next) => {
 
     if (!token) return res.status(403).json({ error: 'Token is required' });
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) return res.status(403).json({ error: 'Invalid or expired token' });
+    jwt.verify(token, SECRET_KEY, (_err, user) => {
+        if (_err) return res.status(403).json({ error: 'Invalid or expired token' });
 
         req.user = user; // Attach user info to the request
         next();
@@ -109,7 +106,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 // 4. Protected Endpoint
-app.get('/dashboard', authenticateToken, (req, res) => {
+app.get('/dashboard', authenticateToken, (_req, res) => {
     res.json({ message: 'Access granted! Producer is starting.' });
 
     // Trigger the producer
@@ -134,7 +131,7 @@ app.get('/dashboard', authenticateToken, (req, res) => {
 });
 
 // Route to trigger Kafka producer
-app.post('/start-producer', (req, res) => {
+app.post('/start-producer', (_req, _res) => {
     // Trigger the producer
     const scriptPath = path.join(__dirname, 'producer_app.py');
     const producer = spawn('python3', [scriptPath]);
