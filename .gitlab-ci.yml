@@ -69,7 +69,7 @@
     stage: lint
     extends: .prepare_nodejs_environment
     script:
-      - npx eslint "**/*.js" > lint/eslint.txt || true
+      - npx eslint "**/*.js" > ../lint/eslint.txt || true
     artifacts:
       paths:
         - lint/eslint.txt
@@ -80,12 +80,12 @@
     stage: lint
     extends: .prepare_nodejs_environment
     script:
-      - npx htmlhint ../frontend/**/*.html > lint/htmlhint.txt || true
-      - npx stylelint ../frontend/**/*.css > lint/stylelint.txt || true
+      - npx htmlhint ../frontend/**/*.html > htmlhint.txt || true
+      - npx stylelint ../frontend/**/*.css > stylelint.txt || true
     artifacts:
       paths:
-        - lint/stylelint.txt
-        - lint/htmlhint.txt
+        - stylelint.txt
+        - htmlhint.txt
       when: always
 
 
@@ -99,16 +99,16 @@
     before_script:
       - pip install --cache-dir=.cache/pip flake8
     script:
-      - flake8 spark/spark_stream.py > lint/spark-lint.txt || true 
-      - flake8 kafka/producer_app.py > lint/kafka-producer-lint.txt || true
-      - flake8 kafka/consumer.py > lint/kafka-consumer-lint.txt || true
-      - flake8 elasticsearch/create_index_elastic.py > lint/elasticsearch-lint.txt || true
+      - flake8 spark/spark_stream.py > spark-lint.txt || true 
+      - flake8 kafka/producer_app.py > kafka-producer-lint.txt || true
+      - flake8 kafka/consumer.py > kafka-consumer-lint.txt || true
+      - flake8 elasticsearch/create_index_elastic.py > elasticsearch-lint.txt || true
     artifacts:
       paths:
-        - lint/spark-lint.txt 
-        - lint/kafka-producer-lint.txt
-        - lint/kafka-consumer-lint.txt
-        - lint/elasticsearch-lint.txt
+        - spark-lint.txt 
+        - kafka-producer-lint.txt
+        - kafka-consumer-lint.txt
+        - elasticsearch-lint.txt
       when: always
 
 
