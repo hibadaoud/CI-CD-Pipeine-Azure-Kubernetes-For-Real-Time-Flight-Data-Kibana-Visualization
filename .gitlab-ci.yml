@@ -69,7 +69,7 @@
     stage: lint
     extends: .prepare_nodejs_environment
     script:
-      - npx eslint "**/*.js" > /eslint.txt || true
+      - npx eslint "**/*.js" > ../eslint.txt || true
     artifacts:
       paths:
         - eslint.txt
@@ -80,12 +80,12 @@
     stage: lint
     extends: .prepare_nodejs_environment
     script:
-      - npx htmlhint ../frontend/**/*.html > htmlhint.txt || true
-      - npx stylelint ../frontend/**/*.css > stylelint.txt || true
+      - npx htmlhint ../frontend/**/*.html > ../htmlhint.txt || true
+      - npx stylelint ../frontend/**/*.css > ../stylelint.txt || true
     artifacts:
       paths:
-        - stylelint.txt
-        - htmlhint.txt
+        - ../stylelint.txt
+        - ../htmlhint.txt
       when: always
 
 
