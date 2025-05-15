@@ -98,12 +98,13 @@
       paths:
         - .cache/pip/
     before_script:
-      - pip install --cache-dir=.cache/pip flake8
+      - python3 -m venv python_env
+      - python_env/bin/pip install --cache-dir=.cache/pip flake8
     script:
-      - flake8 spark/spark_stream.py > spark-lint.txt || true 
-      - flake8 kafka/producer_app.py > kafka-producer-lint.txt || true
-      - flake8 kafka/consumer.py > kafka-consumer-lint.txt || true
-      - flake8 elasticsearch/create_index_elastic.py > elasticsearch-lint.txt || true
+      - python_env/bin/flake8  spark/spark_stream.py > spark-lint.txt || true 
+      - python_env/bin/flake8  kafka/producer_app.py > kafka-producer-lint.txt || true
+      - python_env/bin/flake8  kafka/consumer.py > kafka-consumer-lint.txt || true
+      - python_env/bin/flake8  elasticsearch/create_index_elastic.py > elasticsearch-lint.txt || true
     artifacts:
       paths:
         - spark-lint.txt 
