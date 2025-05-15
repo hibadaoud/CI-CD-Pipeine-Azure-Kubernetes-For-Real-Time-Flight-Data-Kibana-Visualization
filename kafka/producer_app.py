@@ -23,7 +23,16 @@ def delivery_report(err, msg):
 
 # Fetch data from the API
 print("[INFO] Fetching data from API...")
-response = requests.get(api_url)
+try:
+    response = requests.get(api_url, timeout=10)
+    print(f"[INFO] API responded with status: {response.status_code}")
+except requests.exceptions.Timeout:
+    print("[ERROR] API request timed out!")
+    exit(1)
+except requests.exceptions.RequestException as e:
+    print(f"[ERROR] API request failed: {e}")
+    exit(1)
+    
 print(f"[INFO] API responded with status: {response.status_code}")
 
 if response.status_code == 200:
