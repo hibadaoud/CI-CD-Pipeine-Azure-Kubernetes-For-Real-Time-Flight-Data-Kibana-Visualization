@@ -30,7 +30,6 @@
     gap: 1.5rem;
 }
 
-
 .hero-section {
     text-align: center;
     padding: 115px 20px 80px;
@@ -44,6 +43,14 @@
     margin-bottom: 20px;
 }
 
+h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
 .hero-section h2 {
     font-weight: bold;
     color: black;
@@ -52,7 +59,7 @@
 
 .hero-section p {
     font-size: 1.1rem;
-    font-family: "Prompt";
+    font-family: Prompt, sans-serif;
     color: black;
     margin-bottom: 40px;
 }
@@ -78,9 +85,9 @@
     justify-content: center;
     gap: 20px;
     margin-top: 100px;
-}   
+}
 
-.Home {
+.home {
     display: none;
 }
 
@@ -106,15 +113,7 @@ body {
     border-radius: 24px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #333;
-    font-size: 1.75rem;
-    font-weight: 600;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
 }
 
 form {
@@ -140,11 +139,11 @@ input[type="password"]:focus,
 input[type="text"]:focus {
     outline: none;
     border-color: #caa8f7;
-    box-shadow: 0 0 0 4px rgba(132, 29, 141, 0.1);
+    box-shadow: 0 0 0 4px rgb(132 29 141 / 10%);
 }
 
 /* Enlever la bordure quand le mot de passe est visible */
-input[type="text"]#loginPassword {
+input[type="text"]#login-password {
     border: none;
     background-color: transparent;
 }
@@ -157,7 +156,7 @@ input[type="text"]#loginPassword {
     z-index: 2;
 }
 
-#togglePassword {
+#toggle-password {
     transform: translateY(90px);
 }
 
@@ -193,20 +192,21 @@ button[onclick*="register"] {
 }
 
 button[onclick*="register"]:hover {
-    background: rgba(132, 29, 141, 0.1);
+    background: rgb(132 29 141 / 10%);
 }
 
-#loginMessage, #registerMessage {
+#login-message, #register-message {
     text-align: center;
     font-size: 0.9rem;
     margin-top: -0.5rem;
 }
 
-.parag{
-    padding-left:108px;
+.parag {
+    padding-left: 108px;
     padding-top: 15px;
 }
-.Registerbutt {
+
+.register-butt {
     flex: 1;
     padding: 0.875rem;
     border-radius: 12px;
