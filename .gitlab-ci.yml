@@ -84,8 +84,9 @@
       - npx stylelint ../frontend/**/*.css > ../stylelint.txt || true
     artifacts:
       paths:
-        - ../stylelint.txt
-        - ../htmlhint.txt
+        - htmlhint.txt
+        - stylelint.txt
+
       when: always
 
 
