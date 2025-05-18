@@ -125,7 +125,7 @@
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip requests confluent_kafka pytest pytest-mock requests-mock
     script:
-      - pytest 
+      - python_env/bin/pytest 
     # artifacts:
     #   paths:
     #     - kafka-test-results.txt
