@@ -139,14 +139,13 @@
       paths:
         - .cache/pip/
     before_script:
-      - apt-get update && apt-get install -y openjdk-11-jre-headless procps
-      - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+      - apt-get update && apt-get install -y openjdk-17-jre-headless procps
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip pyspark pytest
     script:
-      - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       - python_env/bin/pytest tests/test_spark_logic.py
-
     # artifacts:
     #   paths:
     #     - spark-test-results.txt
