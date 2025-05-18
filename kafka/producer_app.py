@@ -10,10 +10,9 @@ def produce_from_api():
     load_dotenv()
 
     # Kafka Producer Configuration
-    producer = Producer({'bootstrap.servers': 'localhost:9093'})
-    api_url = "https://airlabs.co/api/v9/flights?api_key=ff090b3e-09ef-476c-939f-70d276978db3"
+    producer = Producer({'bootstrap.servers': 'kafka:9092'})
 
-    # api_url = os.getenv('API_URL')
+    api_url = os.getenv('API_URL')
     print(api_url)
 
     def delivery_report(err, msg):
