@@ -5,47 +5,51 @@ import time
 from dotenv import load_dotenv
 import os
 
-# Load variables from .env file
-load_dotenv()
+def produce_from_api():
+    # Load variables from .env file
+    load_dotenv()
 
-# Kafka Producer Configuration
-producer = Producer({'bootstrap.servers': 'kafka:9092'})
+    # Kafka Producer Configuration
+    producer = Producer({'bootstrap.servers': 'localhost:9093'})
+    api_url = "https://airlabs.co/api/v9/flights?api_key=ff090b3e-09ef-476c-939f-70d276978db3"
 
-api_url = os.getenv('API_URL')
+    # api_url = os.getenv('API_URL')
+    print(api_url)
+
+    def delivery_report(err, msg):
+        if err is not None:
+            print(f"[ERROR] Message delivery failed: {err}")
+        else:
+            print(f"[INFO] Message delivered to {msg.topic()} [{msg.partition()}]")
 
 
-def delivery_report(err, msg):
-    if err is not None:
-        print(f"[ERROR] Message delivery failed: {err}")
+    # Fetch data from the API
+    print("[INFO] Fetching data from API...")
+    try:
+        response = requests.get(api_url, timeout=10)
+        print(f"[INFO] API responded with status: {response.status_code}")
+    except requests.exceptions.Timeout:
+        print("[ERROR] API request timed out!")
+        exit(1)
+    except requests.exceptions.RequestException as e:
+        print(f"[ERROR] API request failed: {e}")
+        exit(1)
+        
+    if response.status_code == 200:
+        print(f"[INFO] Received {len(response.json().get('response', []))} items.")
+        data = response.json().get("response", [])
+
+        for i, obj in enumerate(data):
+            producer.produce('flights', key=str(obj.get('hex', '')), value=json.dumps(obj))
+            if i == 0:
+                print("[INFO] First Kafka message sent")  # Signal to Node.js
+            time.sleep(0.01)  # Small delay to prevent overwhelming Kafka
+
+        producer.flush()
+        print("[INFO] All messages sent successfully.")
     else:
-        print(f"[INFO] Message delivered to {msg.topic()} [{msg.partition()}]")
+        print(f"[ERROR] Failed to fetch data (Status Code: {response.status_code})")
+    pass
 
-
-# Fetch data from the API
-print("[INFO] Fetching data from API...")
-try:
-    response = requests.get(api_url, timeout=10)
-    print(f"[INFO] API responded with status: {response.status_code}")
-except requests.exceptions.Timeout:
-    print("[ERROR] API request timed out!")
-    exit(1)
-except requests.exceptions.RequestException as e:
-    print(f"[ERROR] API request failed: {e}")
-    exit(1)
-    
-print(f"[INFO] API responded with status: {response.status_code}")
-
-if response.status_code == 200:
-    print(f"[INFO] Received {len(response.json().get('response', []))} items.")
-    data = response.json().get("response", [])
-
-    for i, obj in enumerate(data):
-        producer.produce('flights', key=str(obj.get('hex', '')), value=json.dumps(obj))
-        if i == 0:
-            print("[INFO] First Kafka message sent")  # Signal to Node.js
-        time.sleep(0.01)  # Small delay to prevent overwhelming Kafka
-
-    producer.flush()
-    print("[INFO] All messages sent successfully.")
-else:
-    print(f"[ERROR] Failed to fetch data (Status Code: {response.status_code})")
+if __name__ == "__main__":
+    produce_from_api()
