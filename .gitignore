@@ -12,3 +12,4 @@ web
 kafka/.env
 node_modules
 Jenkinsfile
+tests/__pycache__
