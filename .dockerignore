@@ -1,0 +1,9 @@
+backend/node_modules
+backend/.env
+backend/Dockerfile
+backend/*.mjs
+backend/npm-debug.log
+frontend/img.jpg
+frontend/user.png
+frontend/.stylelintrc.json
+.env
