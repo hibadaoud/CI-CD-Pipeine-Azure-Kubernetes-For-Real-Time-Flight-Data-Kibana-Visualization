@@ -10,5 +10,5 @@ backend/response.json
 kafka/.env
 web
 kafka/.env
-Jenkinsfile
 node_modules
+Jenkinsfile
