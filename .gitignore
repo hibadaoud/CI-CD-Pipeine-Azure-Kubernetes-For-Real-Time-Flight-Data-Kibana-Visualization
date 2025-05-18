@@ -13,3 +13,6 @@ kafka/.env
 node_modules
 Jenkinsfile
 tests/__pycache__/
+kafka/__pycache__
+spark/__pycache__
+spark/.env

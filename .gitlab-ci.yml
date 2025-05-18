@@ -114,7 +114,7 @@
   #     when: always
 
 
-  test_kafka:
+  unit-test_kafka:
     stage: test
     image: python:3.11-slim
     cache:
@@ -125,11 +125,29 @@
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip requests confluent_kafka python-dotenv pytest pytest-mock requests-mock
     script:
-      - python_env/bin/pytest 
+      - python_env/bin/pytest tests/test_producer_app.py 
     # artifacts:
     #   paths:
     #     - kafka-test-results.txt
     #   when: always
+
+  unit-test_spark:
+    stage: test
+    image: python:3.11-slim
+    cache:
+      key: ${CI_JOB_NAME}
+      paths:
+        - .cache/pip/
+    before_script:
+      - python3 -m venv python_env
+      - python_env/bin/pip install --cache-dir=.cache/pip pyspark pytest 
+    script:
+      - python_env/bin/pytest tests/test_spark_logic.py 
+    # artifacts:
+    #   paths:
+    #     - spark-test-results.txt
+    #   when: always
+
  #Job to install dependencies and run tests
   # test_backend:
   #   extends: .prepare_nodejs_environment
