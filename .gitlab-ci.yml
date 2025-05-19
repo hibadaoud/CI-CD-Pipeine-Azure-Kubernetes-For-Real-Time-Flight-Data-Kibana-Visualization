@@ -125,6 +125,8 @@
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip requests confluent_kafka python-dotenv pytest pytest-mock requests-mock
     script:
+      - pwd
+      - ls -l
       - python_env/bin/pytest tests/test_producer_app.py 
     # artifacts:
     #   paths:
@@ -151,7 +153,7 @@
     #     - spark-test-results.txt
     #   when: always
   
-  unit-test_spark:
+  unit-test_elasticsearch:
     stage: test
     image: python:3.11-slim
     cache:
