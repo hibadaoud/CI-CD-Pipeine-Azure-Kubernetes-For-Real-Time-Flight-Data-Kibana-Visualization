@@ -8,9 +8,6 @@ from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType, StructType, StructField, DoubleType
 from spark import spark_udfs
 
-from pyspark.sql import SparkSession
-from spark import spark_udfs
-
 def test_make_determine_flight_type():
     # Test dict
     country_dict = {'CDG': 'FR', 'JFK': 'US', 'ORY': 'FR'}
