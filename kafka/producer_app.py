@@ -13,7 +13,6 @@ def produce_from_api():
     producer = Producer({'bootstrap.servers': 'kafka:9092'})
 
     api_url = os.getenv('API_URL')
-    print(api_url)
 
     def delivery_report(err, msg):
         if err is not None:
