@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from elasticsearch.create_es_index import create_index_if_needed
+from create_es_index import create_index_if_needed
 
 # Create an Elasticsearch client
 es = Elasticsearch([{'host': 'localhost', 'port': 9200, 'scheme': 'http'}])
