@@ -161,7 +161,6 @@
     before_script:
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip pytest
-      - pwd
     script:
       - python_env/bin/pytest tests/test_spark_logic.py
 
