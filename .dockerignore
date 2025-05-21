@@ -7,3 +7,6 @@ frontend/img.jpg
 frontend/user.png
 frontend/.stylelintrc.json
 .env
+elasticsearch/Dockerfile
+backend/producer_app.py
+backend/tests/jest-junit.xml
