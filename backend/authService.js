@@ -2,8 +2,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
+require('dotenv').config();
 
-const SECRET_KEY = process.env.SECRET_KEY || 'testsecret';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 function validatePassword(password) {
   const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
