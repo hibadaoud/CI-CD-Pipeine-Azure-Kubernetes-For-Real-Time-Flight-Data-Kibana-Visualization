@@ -55,7 +55,16 @@
     image: node:18.18.0-alpine3.18
     before_script:
       - cd backend
-      - npm ci --only=dev
+      - npm install
+    cache:
+      policy: pull-push
+      when: on_success
+      paths: 
+        - backend/node_modules/
+      key:
+        files:
+          - backend/package-lock.json
+        prefix: node_modules
     script:
       - npm run test:unit        # Run tests if MongoDB connection is successful
     artifacts:
