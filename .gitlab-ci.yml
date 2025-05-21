@@ -163,7 +163,7 @@
     extends: .prepare_nodejs_environment
     stage: test
     script:
-      - npm run test             # Run tests if MongoDB connection is successful
+      - npm run test:e2e             # Run tests if MongoDB connection is successful
     artifacts:
       paths:
         - backend/tests/test-reports/jest-junit.xml
