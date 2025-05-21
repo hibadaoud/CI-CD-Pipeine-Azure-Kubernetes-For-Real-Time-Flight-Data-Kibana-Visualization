@@ -10,10 +10,8 @@ beforeAll(async() => {
     options = {
       user: process.env.MONGO_INITDB_ROOT_USERNAME,
       pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
-      dbName: process.env.DB_Test_NAME,
 			connectTimeoutMS: 10000, // Connection timeout in milliseconds
      		family: 4, // Force IPv4
-			authSource: 'admin', // Necessary for authentication in GitLab CI
     };     
     // Connect to MongoDB
 		console.log("trying to conenct to test database");

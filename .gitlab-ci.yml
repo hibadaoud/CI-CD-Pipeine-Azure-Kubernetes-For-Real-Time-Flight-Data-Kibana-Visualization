@@ -33,10 +33,9 @@
         alias: mongo
         pull_policy: always
     variables:
-      MONGO_BASE_URI: 'mongodb://mongo:27017'
+      MONGO_BASE_URI: "mongodb://mongo:27017/Dashboard-Auth-Test?authSource=admin"
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
-      DB_Test_NAME: Dashboard-Auth-Test
     cache:
       policy: pull-push
       when: on_success
