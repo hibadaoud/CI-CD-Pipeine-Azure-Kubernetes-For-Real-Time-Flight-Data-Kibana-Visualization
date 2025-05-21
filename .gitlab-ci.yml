@@ -33,7 +33,7 @@
         alias: mongo
         pull_policy: always
     variables:
-      MONGO_BASE_URI: "mongodb://mongo:27017/Dashboard-Auth-Test?authSource=admin"
+      MONGO_URI: 'mongodb://mongo:27017/Dashboard-Auth-Test?authSource=admin'
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
     cache:
