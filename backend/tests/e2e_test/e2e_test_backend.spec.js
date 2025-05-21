@@ -7,34 +7,34 @@ const createApp = require("../../createApp");
 
 let app
 beforeAll(async() => {
-	// try{
-	//   const mongoUri = process.env.MONGO_BASE_URI ;
-  //   options = {
-  //     user: process.env.MONGO_INITDB_ROOT_USERNAME,
-  //     pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
-	// 		connectTimeoutMS: 10000, // Connection timeout in milliseconds
-  //    	family: 4, // Force IPv4
-  //   };     
-  //   // Connect to MongoDB
-	// 	console.log("trying to conenct to test database");
-  //   await mongoose.connect(mongoUri, options);
-	// 	console.log("Connected to Test Database at", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME);
-	// }catch(err){
-	// 	console.error("Database connection error:",  err.stack || err);
-	// 	console.log("Attempting to connect to database at:", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME );
-	// }
-  const MONGO_URI = process.env.MONGO_URI;
-  mongoose.connect(
-    MONGO_URI,
-    {
-      // user: process.env.MONGO_USER,
-      // pass: process.env.MONGO_PASSWORD,
+	try{
+	  const mongoUri = process.env.MONGO_URI ;
+    options = {
       user: process.env.MONGO_INITDB_ROOT_USERNAME,
-      pass: process.env.MONGO_INITDB_ROOT_USERNAME,
-    }
-  )
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(_err => console.error('MongoDB connection error:', _err));
+      pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
+			connectTimeoutMS: 10000, // Connection timeout in milliseconds
+     	family: 4, // Force IPv4
+    };     
+    // Connect to MongoDB
+		console.log("trying to conenct to test database");
+    await mongoose.connect(mongoUri, options);
+		console.log("Connected to Test Database at", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME);
+	}catch(err){
+		console.error("Database connection error:",  err.stack || err);
+		console.log("Attempting to connect to database at:", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME );
+	}
+  // const MONGO_URI = process.env.MONGO_URI;
+  // mongoose.connect(
+  //   MONGO_URI,
+  //   {
+  //     // user: process.env.MONGO_USER,
+  //     // pass: process.env.MONGO_PASSWORD,
+  //     user: process.env.MONGO_INITDB_ROOT_USERNAME,
+  //     pass: process.env.MONGO_INITDB_ROOT_USERNAME,
+  //   }
+  // )
+  // .then(() => console.log('Connected to MongoDB'))
+  // .catch(_err => console.error('MongoDB connection error:', _err));
 	app = createApp(); 
 
 });
