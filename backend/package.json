@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest --reporters=default --reporters=jest-junit --testPathPattern=tests/e2e_test ",
+    "test": "jest --forceExit --reporters=default --reporters=jest-junit --testPathPattern=tests/e2e_test ",
     "test:e2e": "jest --testPathPattern=tests/e2e_test",
     "test:unit": "jest --testPathPattern=tests/unit_test",
     "dev": "nodemon server.js",
