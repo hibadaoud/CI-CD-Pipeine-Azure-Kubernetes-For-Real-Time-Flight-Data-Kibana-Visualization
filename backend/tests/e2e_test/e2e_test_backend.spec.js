@@ -23,18 +23,6 @@ beforeAll(async() => {
 		console.error("Database connection error:",  err.stack || err);
 		console.log("Attempting to connect to database at:", process.env.MONGO_URI );
 	}
-  // const MONGO_URI = process.env.MONGO_URI;
-  // mongoose.connect(
-  //   MONGO_URI,
-  //   {
-  //     // user: process.env.MONGO_USER,
-  //     // pass: process.env.MONGO_PASSWORD,
-  //     user: process.env.MONGO_INITDB_ROOT_USERNAME,
-  //     pass: process.env.MONGO_INITDB_ROOT_USERNAME,
-  //   }
-  // )
-  // .then(() => console.log('Connected to MongoDB'))
-  // .catch(_err => console.error('MongoDB connection error:', _err));
 	app = createApp(); 
 
 });
@@ -43,14 +31,6 @@ afterAll(async () => {
 		await mongoose.connection.dropDatabase();
 		await mongoose.connection.close();
 	});
-
-// You may want to clear collections between tests
-afterEach(async () => {
-  const collections = mongoose.connection.collections;
-  for (const key in collections) {
-    await collections[key].deleteMany({});
-  }
-});
 
 // Mock child_process.spawn
 jest.mock('child_process', () => {
