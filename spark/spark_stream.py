@@ -1,6 +1,5 @@
 # IMPORT LIBRARIES
 from pyspark.sql import SparkSession
-from pyspark.conf import SparkConf
 from pyspark.sql.types import StructType, StructField, DoubleType, IntegerType
 from pyspark.sql.functions import from_json, col, when, length, struct
 from pyspark.sql.functions import udf
@@ -32,46 +31,40 @@ schema = StructType([
     StructField("status", StringType(), True),
 ])
 
-spark_conf = SparkConf() \
-    .setAppName("flight_consumer") \
-    .setMaster("local") \
-    .set("spark.executor.memory", "2g") \
-    .set("spark.executor.cores", "2")
-
 # Create a SparkSession
-spark = SparkSession.builder.config(conf=spark_conf).getOrCreate()
+spark = SparkSession.builder.appName("flight_consumer").getOrCreate()
 
 # Set log level to ERROR
 spark.sparkContext.setLogLevel("ERROR")
 
 # Read from the Kafka topic 'flight'
 dataframe = spark \
-    .readStream \
-    .format("kafka") \
-    .option("kafka.bootstrap.servers", 'kafka:9092') \
-    .option("subscribe", "flights") \
-    .option("startingOffsets", "earliest") \
-    .load()
+        .readStream \
+        .format("kafka") \
+        .option("kafka.bootstrap.servers", 'kafka:9092') \
+        .option("subscribe", "flights") \
+        .option("startingOffsets", "earliest") \
+        .load()
 
 # ----------------------------
 # PROCESSING THE DATA
 
 # Load the CSV file containing the mapping of IATA codes to country codes into a dictionary
-iata_country_dict = spark.read.csv("airports_external.csv", header=True) \
+iata_country_dict = spark.read.csv("/opt/bitnami/spark/airports_external.csv", header=True) \
                             .rdd \
                             .map(lambda row: (row["iata"], row["country_code"])) \
                             .collectAsMap()
 
 
 # Load the CSV file containing the mapping of IATA codes to positions into a dictionary
-iata_position_dict = spark.read.csv("airports_external.csv", header=True) \
+iata_position_dict = spark.read.csv("/opt/bitnami/spark/airports_external.csv", header=True) \
                             .rdd \
                             .map(lambda row: (row["iata"], (float(row["lat"]), float(row["lon"])))) \
                             .collectAsMap()
 
 
 # Load the CSV file containing the mapping of IATA codes to names into a dictionary
-iata_name_dict = spark.read.csv("airports_external.csv", header=True) \
+iata_name_dict = spark.read.csv("/opt/bitnami/spark/airports_external.csv", header=True) \
                             .rdd \
                             .map(lambda row: (row["iata"], row["Name"])) \
                             .collectAsMap()
@@ -134,7 +127,6 @@ dataframe = dataframe.filter(~(col("position.lat").isNull() | col("position.lon"
 dataframe = dataframe.filter(~(col("dep_pos.lat").isNull() | col("dep_pos.lon").isNull() | col("dep_pos").isNull()))
 dataframe = dataframe.filter(~(col("arr_pos.lat").isNull() | col("arr_pos.lon").isNull() | col("arr_pos").isNull()))
 
-
 # ----------------------------
 # WRITING INTO ELASTICSEARCH
 query = dataframe.writeStream \
@@ -147,6 +139,11 @@ query = dataframe.writeStream \
     .option("checkpointLocation", "tmp/checkpoint2") \
     .option("es.resource", "esflight")\
     .start()
+import time
+
+# while query.isActive:
+#     print(query.lastProgress)
+#     time.sleep(10)
 
 # Writing to console (for test and debug purposes)
 # query = dataframe \

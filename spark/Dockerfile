@@ -30,7 +30,12 @@ COPY ./spark/airports_external.csv /opt/bitnami/spark/airports_external.csv
 COPY ./spark/spark-env.sh spark-master:/opt/bitnami/spark/conf/
 
 # Copy spark file into a container
-COPY ./spark/spark_stream.py /opt/bitnami/spark/spark_stream.py
+COPY ./spark/spark_stream.py /opt/bitnami/spark/
+
+RUN mkdir -p /home/spark/.ivy2 && chown -R 1001:1001 /home/spark/.ivy2
+ENV IVY_HOME=/home/spark/.ivy2
+RUN echo "spark:x:1001:1001:Spark user:/opt/bitnami/spark:/bin/bash" >> /etc/passwd
+
 
 # Switch back to the default user
 USER 1001
