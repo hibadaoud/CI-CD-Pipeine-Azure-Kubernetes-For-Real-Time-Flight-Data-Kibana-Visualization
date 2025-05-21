@@ -1,6 +1,7 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import pytest
 
 from unittest.mock import patch, MagicMock
 from kafka import producer_app
@@ -27,7 +28,10 @@ def test_producer_app_fetch_and_produce(mock_get, MockProducer):
     mock_producer_instance = MockProducer.return_value
     
     producer_app.api_url = "http://fakeapi.com"  # Set any dummy value if needed
-    producer_app.produce_from_api()  # This should be your logic moved into a function
+    # Now, expect SystemExit because produce_from_api calls exit()
+    with pytest.raises(SystemExit) as e:
+        producer_app.produce_from_api()
+    assert e.value.code == 0  # Check that exit code is 0 (success)
 
     # 4. Check that produce() was called for each object in the response
     calls = mock_producer_instance.produce.call_args_list
