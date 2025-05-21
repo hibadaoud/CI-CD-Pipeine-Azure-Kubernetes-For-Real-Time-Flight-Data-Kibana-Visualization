@@ -16,7 +16,7 @@ beforeAll(async() => {
      	family: 4, // Force IPv4
     };     
     // Connect to MongoDB
-		console.log("trying to conenct to test database");
+		console.log("Trying to conenct to Test Database");
     await mongoose.connect(mongoUri, options);
 		console.log("Connected to Test Database at", process.env.MONGO_URI);
 	}catch(err){
