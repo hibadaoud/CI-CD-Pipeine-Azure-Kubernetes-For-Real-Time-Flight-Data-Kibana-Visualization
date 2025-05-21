@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="2.078">
+  <testsuite name="User Registration and Login" errors="0" failures="0" skipped="0" timestamp="2025-05-21T20:56:32" time="2.04" tests="10">
+    <testcase classname="User Registration and Login should register a user" name="User Registration and Login should register a user" time="0.193">
+    </testcase>
+    <testcase classname="User Registration and Login should not register with weak password" name="User Registration and Login should not register with weak password" time="0.019">
+    </testcase>
+    <testcase classname="User Registration and Login should not register duplicate email" name="User Registration and Login should not register duplicate email" time="0.103">
+    </testcase>
+    <testcase classname="User Registration and Login should login user and get JWT" name="User Registration and Login should login user and get JWT" time="0.174">
+    </testcase>
+    <testcase classname="User Registration and Login should reject login with invalid email" name="User Registration and Login should reject login with invalid email" time="0.019">
+    </testcase>
+    <testcase classname="User Registration and Login should reject login with wrong password" name="User Registration and Login should reject login with wrong password" time="0.106">
+    </testcase>
+    <testcase classname="Protected Dashboard and producer start should reject dashboard without token" name="Protected Dashboard and producer start should reject dashboard without token" time="0.184">
+    </testcase>
+    <testcase classname="Protected Dashboard and producer start should reject dashboard with invalid token" name="Protected Dashboard and producer start should reject dashboard with invalid token" time="0.109">
+    </testcase>
+    <testcase classname="Protected Dashboard and producer start should access dashboard with valid token and start the producer successfully" name="Protected Dashboard and producer start should access dashboard with valid token and start the producer successfully" time="0.122">
+    </testcase>
+    <testcase classname="POST /start-producer should respond 200 when producer reports API 200" name="POST /start-producer should respond 200 when producer reports API 200" time="0.026">
+    </testcase>
+  </testsuite>
+</testsuites>
