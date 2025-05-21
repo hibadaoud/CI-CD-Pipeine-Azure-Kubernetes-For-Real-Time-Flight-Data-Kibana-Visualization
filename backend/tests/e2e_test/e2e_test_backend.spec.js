@@ -8,20 +8,20 @@ const createApp = require("../../createApp");
 let app
 beforeAll(async() => {
 	try{
-	  const mongoUri = process.env.MONGO_URI ;
+	  const mongoUri = process.env.MONGO_TEST_URI ;
     options = {
-      user: process.env.MONGO_INITDB_ROOT_USERNAME,
-      pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
+      user: process.env.MONGO_USER,
+      pass: process.env.MONGO_PASSWORD,
 			connectTimeoutMS: 10000, // Connection timeout in milliseconds
      	family: 4, // Force IPv4
     };     
     // Connect to MongoDB
 		console.log("Trying to conenct to Test Database");
     await mongoose.connect(mongoUri, options);
-		console.log("Connected to Test Database at", process.env.MONGO_URI);
+		console.log("Connected to Test Database at", process.env.MONGO_TEST_URI);
 	}catch(err){
 		console.error("Database connection error:",  err.stack || err);
-		console.log("Attempting to connect to database at:", process.env.MONGO_URI );
+		console.log("Attempting to connect to database at:", process.env.MONGO_TEST_URI );
 	}
 	app = createApp(); 
 
