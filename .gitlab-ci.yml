@@ -35,7 +35,7 @@
     variables:
       MONGO_URI: mongodb://mongo:27017/Dashboard-Auth-Test?authSource=admin
       MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_TEST_PASSWORD
     cache:
       policy: pull-push
       when: on_success
@@ -163,7 +163,7 @@
     extends: .prepare_nodejs_environment
     stage: test
     script:
-      - npm run test:e2e --detectOpenHandles          # Run tests if MongoDB connection is successful
+      - npm test --detectOpenHandles          # Run tests if MongoDB connection is successful
     artifacts:
       paths:
         - backend/tests/test-reports/jest-junit.xml

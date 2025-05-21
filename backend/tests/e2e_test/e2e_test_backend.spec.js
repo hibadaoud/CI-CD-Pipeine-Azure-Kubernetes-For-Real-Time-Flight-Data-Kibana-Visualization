@@ -18,10 +18,10 @@ beforeAll(async() => {
     // Connect to MongoDB
 		console.log("trying to conenct to test database");
     await mongoose.connect(mongoUri, options);
-		console.log("Connected to Test Database at", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME);
+		console.log("Connected to Test Database at", process.env.MONGO_URI);
 	}catch(err){
 		console.error("Database connection error:",  err.stack || err);
-		console.log("Attempting to connect to database at:", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME );
+		console.log("Attempting to connect to database at:", process.env.MONGO_URI );
 	}
   // const MONGO_URI = process.env.MONGO_URI;
   // mongoose.connect(
