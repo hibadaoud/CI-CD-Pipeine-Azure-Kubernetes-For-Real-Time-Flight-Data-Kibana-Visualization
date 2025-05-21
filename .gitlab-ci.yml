@@ -36,7 +36,7 @@
       MONGO_URI: mongodb://mongo:27017/Dashboard-Auth-Test?authSource=admin
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_TEST_PASSWORD
-      SECRET_KEY: $SECRET_KEY
+      # SECRET_KEY: $SECRET_KEY
     cache:
       policy: pull-push
       when: on_success
