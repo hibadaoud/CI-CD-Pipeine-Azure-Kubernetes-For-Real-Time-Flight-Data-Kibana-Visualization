@@ -2,28 +2,28 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const createApp = require("../../createApp");
+
 
 let app
 beforeAll(async() => {
 	try{
-	  const mongoUri = process.env.MONGO_BASE_URI ;
+	  const mongoUri = process.env.MONGO_TEST_URI ;
     options = {
-      user: process.env.MONGO_INITDB_ROOT_USERNAME,
-      pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
-      dbName: process.env.DB_Test_NAME,
+      user: process.env.MONGO_USER,
+      pass: process.env.MONGO_PASSWORD,
 			connectTimeoutMS: 10000, // Connection timeout in milliseconds
-     		family: 4, // Force IPv4
-			authSource: 'admin', // Necessary for authentication in GitLab CI
+     	family: 4, // Force IPv4
     };     
     // Connect to MongoDB
-		console.log("trying to conenct to test database");
-      await mongoose.connect(mongoUri, options);
-		console.log("Connected to Test Database at", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME);
+		console.log("Trying to conenct to Test Database");
+    await mongoose.connect(mongoUri, options);
+		console.log("Connected to Test Database at", process.env.MONGO_TEST_URI);
 	}catch(err){
 		console.error("Database connection error:",  err.stack || err);
-		console.log("Attempting to connect to database at:", process.env.MONGO_BASE_URI, process.env.DB_Test_NAME );
+		console.log("Attempting to connect to database at:", process.env.MONGO_TEST_URI );
 	}
-	app = require('../../server'); 
+	app = createApp(); 
 
 });
 
@@ -31,14 +31,6 @@ afterAll(async () => {
 		await mongoose.connection.dropDatabase();
 		await mongoose.connection.close();
 	});
-
-// You may want to clear collections between tests
-afterEach(async () => {
-  const collections = mongoose.connection.collections;
-  for (const key in collections) {
-    await collections[key].deleteMany({});
-  }
-});
 
 // Mock child_process.spawn
 jest.mock('child_process', () => {
