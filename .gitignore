@@ -16,3 +16,5 @@ tests/__pycache__/
 kafka/__pycache__
 spark/__pycache__
 spark/.env
+backend/producer_app.py
+backend/tests/jest-junit.xml
