@@ -3,8 +3,27 @@ const express = require('express');
 const { registerUser, loginUser, authenticateToken } = require('./authService');
 const { spawn } = require('child_process');
 const path = require('path');
+const OS = require('os');
+
 
 const router = express.Router();
+
+router.get('/live', async (req, res) => {
+    console.log("Live Status endpoint hit");
+    res.setHeader('Content-Type', 'application/json');
+    res.send({
+        status: "live"
+    });
+});
+
+router.get('/os', async (req, res) => {
+    console.log("Os endpoint hit");
+    res.setHeader('Content-Type', 'application/json');
+    res.send({
+        "os": OS.hostname(),
+        "env": process.env.NODE_ENV
+    });
+});
 
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
