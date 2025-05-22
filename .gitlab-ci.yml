@@ -181,6 +181,7 @@
       PORT: 3000
     before_script:
       - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+      - ls -l wait-for-services.sh
     script:
       - docker-compose pull || true   # Pull for cache
       - docker-compose build
