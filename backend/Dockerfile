@@ -16,7 +16,7 @@ RUN useradd --user-group --create-home --shell /bin/bash appuser
 WORKDIR /app
 
 # Change permissions for the app directory
-RUN chown -R appuser:appuser /ap
+RUN chown -R appuser:appuser /app
 
 COPY backend/package*.json ./
 RUN npm install
