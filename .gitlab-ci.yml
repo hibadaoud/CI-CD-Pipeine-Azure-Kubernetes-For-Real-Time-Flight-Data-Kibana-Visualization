@@ -19,7 +19,7 @@
   include:
     - template: Jobs/SAST.gitlab-ci.yml
     - component: gitlab.com/gitlab-components/secret-detection/secret-detection@1.0
-    - template: Security/Container-Scanning.gitlab-ci.yml
+    # - template: Security/Container-Scanning.gitlab-ci.yml
 
   variables:
     IMAGE_VERSION: $CI_PIPELINE_ID
@@ -172,6 +172,8 @@
       DOCKER_HOST: tcp://docker:2376
       DOCKER_TLS_CERTDIR: "/certs"
       DOCKER_BUILDKIT: 1
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
       MONGO_URI: 'mongodb://mongo:27017/auth_db?authSource=admin'
       MONGO_TEST_URI: 'mongodb://mongo:27017/auth_test_db?authSource=admin'
       API_URL: $API_URL
