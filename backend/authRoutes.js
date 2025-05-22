@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/dashboard', authenticateToken, (_req, res) => {
     const scriptPath = path.join(__dirname, 'producer_app.py');
-    const producer = spawn('python3', [ scriptPath]);
+    const producer = spawn('../python_env/bin/python', [ scriptPath]);
     let responded = false;
 
     producer.stdout.on('data', (data) => {
@@ -74,7 +74,7 @@ router.get('/dashboard', authenticateToken, (_req, res) => {
 
 router.post('/start-producer', (_req, res) => {
   const scriptPath = path.join(__dirname, 'producer_app.py');
-  const producer = spawn('python3', [scriptPath]);
+  const producer = spawn('python_env/bin/python3', [scriptPath]);
   let responded = false;
 
   producer.stdout.on('data', (data) => {
