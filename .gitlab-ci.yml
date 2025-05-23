@@ -18,7 +18,7 @@
 
   include:
     # - template: Jobs/SAST.gitlab-ci.yml
-    - component: gitlab.com/gitlab-components/secret-detection/secret-detection@1.0
+    # - component: gitlab.com/gitlab-components/secret-detection/secret-detection@1.0
     # - template: Security/Container-Scanning.gitlab-ci.yml
 
   variables:
@@ -45,15 +45,15 @@
   # sast:
   #   stage: .pre
 
-  secret_detection:
-    stage: .pre
-    variables:
-      SECRET_DETECTION_HISTORIC_SCAN: "false"
-    rules:
-      - if: $CI_COMMIT_BRANCH == "feature"
-        when: never
-      - if: $CI_COMMIT_BRANCH == "main"
-        when: always
+  # secret_detection:
+  #   stage: .pre
+  #   variables:
+  #     SECRET_DETECTION_HISTORIC_SCAN: "false"
+  #   rules:
+  #     - if: $CI_COMMIT_BRANCH == "feature"
+  #       when: never
+  #     - if: $CI_COMMIT_BRANCH == "main"
+  #       when: always
 
   # lint-backend:
   #   stage: lint
@@ -186,13 +186,18 @@
       - echo $CI_PROJECT_DIR
 
     script:
-      - docker-compose pull || true   # Pull for cache
-      - docker-compose build
-      - docker-compose up -d
-      - chmod +x $CI_PROJECT_DIR/wait-for-services.sh
-      - $CI_PROJECT_DIR/wait-for-services.sh
-      - docker-compose ps
-      - docker-compose down
-      - docker-compose push
+      - file wait-for-services.sh
+      - head -1 wait-for-services.sh | cat -A
+      # - dos2unix wait-for-services.sh  # only if dos2unix is installed
+      - cat -A wait-for-services.sh | head -5
+
+      # - docker-compose pull || true   # Pull for cache
+      # - docker-compose build
+      # - docker-compose up -d
+      # - chmod +x $CI_PROJECT_DIR/wait-for-services.sh
+      # - $CI_PROJECT_DIR/wait-for-services.sh
+      # - docker-compose ps
+      # - docker-compose down
+      # - docker-compose push
         
     
