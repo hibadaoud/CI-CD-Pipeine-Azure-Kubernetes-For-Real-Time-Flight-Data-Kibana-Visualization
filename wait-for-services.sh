@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # List of services to check (space-separated string)
-SERVICES="zookeeper-cntr kafka-cntr elasticsearch-cntr kibana-cntr mongo-cntr backend-cntr frontend-cntr spark-master spark-worker-1 spark-worker-2 spark-job-submit"
+SERVICES="spark-master spark-worker-1 spark-worker-2 zookeeper-cntr kafka-cntr elasticsearch-cntr kibana-cntr mongo-cntr backend-cntr frontend-cntr spark-job-submit"
 
 TIMEOUT=300   # seconds, adjust for your stack
 SLEEP=5       # seconds between checks
