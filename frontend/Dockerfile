@@ -1,9 +1,7 @@
 # Use an Nginx server to serve static files
 FROM nginx:alpine
 
-WORKDIR /app
-
-COPY frontend .
+COPY frontend /usr/share/nginx/html
 
 USER nginx
 
