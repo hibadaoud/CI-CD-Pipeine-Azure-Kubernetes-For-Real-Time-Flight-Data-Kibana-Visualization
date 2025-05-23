@@ -179,25 +179,17 @@
       API_URL: $API_URL
       SECRET_KEY: $SECRET_KEY
       PORT: 3000
-    # before_script:
-    #   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    #   - pwd
-    #   - ls -l
-    #   - echo $CI_PROJECT_DIR
-
+    before_script:
+      - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    
     script:
-      - sh wait-for-services.sh
-      - head -1 wait-for-services.sh | cat -A
-      # - dos2unix wait-for-services.sh  # only if dos2unix is installed
-      - cat -A wait-for-services.sh | head -5
-
-      # - docker-compose pull || true   # Pull for cache
-      # - docker-compose build
-      # - docker-compose up -d
-      # - chmod +x $CI_PROJECT_DIR/wait-for-services.sh
-      # - $CI_PROJECT_DIR/wait-for-services.sh
-      # - docker-compose ps
-      # - docker-compose down
-      # - docker-compose push
+      - docker-compose pull || true   # Pull for cache
+      - docker-compose build
+      - docker-compose up -d
+      - chmod +x wait-for-services.sh
+      - ./wait-for-services.sh
+      - docker-compose ps
+      - docker-compose down
+      - docker-compose push
         
     
