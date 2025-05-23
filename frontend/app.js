@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:3000";
+const BACKEND_API_BASE = "${BACKEND_API_BASE}";
  
 // Validate Password on the Client Side
 // function validatePassword(password) {
@@ -13,7 +13,7 @@ if (document.getElementById("registerForm")) {
         const password = document.getElementById("registerPassword").value;
         const registerMessage = document.getElementById("registerMessage");
         try {
-            const response = await fetch(`${API_BASE}/register`, {
+            const response = await fetch(`${BACKEND_API_BASE}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ if (document.getElementById("loginForm")) {
         const password = document.getElementById("loginPassword").value;
         const loginMessage = document.getElementById("loginMessage");
         try {
-            const response = await fetch(`${API_BASE}/login`, {
+            const response = await fetch(`${BACKEND_API_BASE}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = "login.html";
             }, 100);  // Delay for 100 milliseconds
         } else {
-            fetch(`${API_BASE}/dashboard`, {
+            fetch(`${BACKEND_API_BASE}/dashboard`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
                 .then((response) => {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             document.getElementById('fetchDataButton').addEventListener('click', () => {
-                fetch(`${API_BASE}/start-producer`, {
+                fetch(`${BACKEND_API_BASE}/start-producer`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

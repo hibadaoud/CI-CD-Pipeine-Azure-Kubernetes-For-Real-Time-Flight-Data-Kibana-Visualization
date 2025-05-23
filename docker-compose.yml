@@ -273,18 +273,19 @@ services:
       args:
         - BUILDKIT_INLINE_CACHE=1
     ports:
-      - "8080:80"
+      - "8080:8080"
+    environment:
+      - BACKEND_API_BASE=${BACKEND_API_BASE}  
     depends_on:
       backend:
         condition: service_healthy
     networks: 
       - flight_network
     healthcheck:
-      test: curl --fail http://localhost:80 || exit 1
+      test: curl --fail http://localhost:8080 || exit 1
       interval: 10s
-      timeout: 15s
-      retries: 5
-      start_period: 20s
+      timeout: 8s
+      retries: 3
 
 
 networks:

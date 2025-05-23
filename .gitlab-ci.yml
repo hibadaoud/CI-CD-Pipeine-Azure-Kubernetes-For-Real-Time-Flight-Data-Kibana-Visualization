@@ -178,6 +178,7 @@
       MONGO_TEST_URI: 'mongodb://mongo:27017/auth_test_db?authSource=admin'
       API_URL: $API_URL
       SECRET_KEY: $SECRET_KEY
+      BACKEND_API_BASE: 'http://localhost:3000'
       PORT: 3000
     before_script:
       - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
