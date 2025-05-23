@@ -51,9 +51,9 @@
       SECRET_DETECTION_HISTORIC_SCAN: "false"
     rules:
       - if: $CI_COMMIT_BRANCH == "feature"
-        when: always
-      - if: $CI_COMMIT_BRANCH == "main"
         when: never
+      - if: $CI_COMMIT_BRANCH == "main"
+        when: always
 
   # lint-backend:
   #   stage: lint
@@ -180,8 +180,11 @@
       SECRET_KEY: $SECRET_KEY
       PORT: 3000
     before_script:
-      - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-      - ls -l wait-for-services.sh
+      # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+      - ls -l wait-for-services.
+      - - pwd
+      - ls -l
+
     script:
       - docker-compose pull || true   # Pull for cache
       - docker-compose build
