@@ -183,13 +183,14 @@
       - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
       - pwd
       - ls -l
+      - echo $CI_PROJECT_DIR
 
     script:
       - docker-compose pull || true   # Pull for cache
       - docker-compose build
       - docker-compose up -d
-      - chmod +x wait-for-services.sh
-      - ./wait-for-services.sh
+      - chmod +x $CI_PROJECT_DIR/wait-for-services.sh
+      - $CI_PROJECT_DIR/wait-for-services.sh
       - docker-compose ps
       - docker-compose down
       - docker-compose push
