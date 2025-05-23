@@ -274,8 +274,6 @@ services:
         - BUILDKIT_INLINE_CACHE=1
     ports:
       - "8080:80"
-    volumes:
-      - ./frontend:/usr/share/nginx/html
     depends_on:
       backend:
         condition: service_healthy
@@ -284,8 +282,10 @@ services:
     healthcheck:
       test: curl --fail http://localhost:80 || exit 1
       interval: 10s
-      timeout: 8s
-      retries: 3
+      timeout: 15s
+      retries: 5
+      start_period: 20s
+
 
 networks:
   flight_network:
