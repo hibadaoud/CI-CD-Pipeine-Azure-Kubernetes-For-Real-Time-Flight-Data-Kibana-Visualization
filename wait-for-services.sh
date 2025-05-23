@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # List of services to check
 SERVICES=(
