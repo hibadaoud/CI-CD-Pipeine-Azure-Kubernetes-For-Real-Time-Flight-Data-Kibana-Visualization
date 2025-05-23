@@ -186,8 +186,7 @@
     #   - echo $CI_PROJECT_DIR
 
     script:
-      - apk update && apk add bash
-      - bash wait-for-services.sh
+      - sh wait-for-services.sh
       - head -1 wait-for-services.sh | cat -A
       # - dos2unix wait-for-services.sh  # only if dos2unix is installed
       - cat -A wait-for-services.sh | head -5
