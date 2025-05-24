@@ -185,8 +185,8 @@
       # - export DOCKER_BUILDKIT=1
       # - export COMPOSE_DOCKER_CLI_BUILD=1
     script:
-      - docker pull registry.gitlab.com/hibadaoud69/real-time-flight-data-kibana-visualization/flight-dash-backend:1833597906
-      - docker history docker history registry.gitlab.com/your/project/backend:latest
+      - docker pull registry.gitlab.com/hibadaoud69/real-time-flight-data-kibana-visualization/flight-dash-frontend:1833597906
+      - docker history registry.gitlab.com/hibadaoud69/real-time-flight-data-kibana-visualization/flight-dash-frontend:1833597906
       # - docker compose pull || true   # Pull for cache
       # - docker compose build --pull
       # - docker compose up -d
