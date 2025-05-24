@@ -1,9 +1,6 @@
 #!/bin/sh
-set -e
 
-# Substitute environment variables in JS files at container startup
-for f in /usr/share/nginx/html/*.js; do
-  envsubst < "$f" > "${f}.tmp" && mv "${f}.tmp" "$f"
-done
+# Generate config.js with env values
+echo "window.BACKEND_API_BASE = \"${BACKEND_API_BASE}\";" > /usr/share/nginx/html/config.js
 
 exec nginx -g 'daemon off;'
