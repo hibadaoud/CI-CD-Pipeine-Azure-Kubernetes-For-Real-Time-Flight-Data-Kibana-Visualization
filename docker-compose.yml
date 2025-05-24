@@ -46,8 +46,8 @@ services:
   spark-master:
     image: ${CI_REGISTRY_IMAGE}/flight-dash-spark:1833597906
     build:
-      context: ./ 
-      dockerfile: spark/Dockerfile
+      context: ./spark
+      dockerfile: Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=1
     container_name: spark-master
@@ -140,8 +140,8 @@ services:
     image: ${CI_REGISTRY_IMAGE}/flight-dash-elasticsearch:1833597906
     container_name: elasticsearch-cntr
     build:
-      context: .
-      dockerfile: elasticsearch/Dockerfile
+      context: ./elasticsearch
+      dockerfile: Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=1
     environment:
@@ -183,8 +183,8 @@ services:
     image: ${CI_REGISTRY_IMAGE}/flight-dash-kibana:1833597906
     container_name: kibana-cntr
     build:
-      context: .
-      dockerfile: kibana/Dockerfile
+      context: ./kibana
+      dockerfile: Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=1
     ulimits:
@@ -237,8 +237,8 @@ services:
     image: ${CI_REGISTRY_IMAGE}/flight-dash-backend:1833597906
     container_name: backend-cntr
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=1
     ports:
@@ -268,8 +268,8 @@ services:
     image: ${CI_REGISTRY_IMAGE}/flight-dash-frontend:1833597906
     container_name: frontend-cntr
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=1
     ports:

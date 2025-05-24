@@ -25,12 +25,12 @@ RUN mkdir -p /opt/bitnami/spark/checkpoints/flights && \
 
 RUN pip install spark pyspark
 
-COPY ./spark/airports_external.csv /opt/bitnami/spark/airports_external.csv
+COPY airports_external.csv /opt/bitnami/spark/airports_external.csv
 
-COPY ./spark/spark-env.sh spark-master:/opt/bitnami/spark/conf/
+COPY spark-env.sh spark-master:/opt/bitnami/spark/conf/
 
 # Copy spark file into a container
-COPY ./spark/spark_stream.py /opt/bitnami/spark/
+COPY spark_stream.py /opt/bitnami/spark/
 
 RUN mkdir -p /home/spark/.ivy2 && chown -R 1001:1001 /home/spark/.ivy2
 ENV IVY_HOME=/home/spark/.ivy2

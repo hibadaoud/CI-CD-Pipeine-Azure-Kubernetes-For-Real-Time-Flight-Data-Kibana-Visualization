@@ -1,7 +1,0 @@
-backend/node_modules
-backend/.env
-backend/Dockerfile
-backend/*.mjs
-backend/npm-debug.log
-.env
-elasticsearch/Dockerfile

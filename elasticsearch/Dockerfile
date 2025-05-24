@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip \
     && chmod 775 /opt/bitnami/elasticsearch
 
 # Copy custom scripts
-COPY elasticsearch /usr/share/elasticsearch/scripts
+COPY . /usr/share/elasticsearch/scripts
 
 # Make the startup script executable
 RUN chmod +x /usr/share/elasticsearch/scripts/custom_startup.sh

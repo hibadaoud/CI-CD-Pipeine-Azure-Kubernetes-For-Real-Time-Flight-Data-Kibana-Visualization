@@ -18,12 +18,11 @@ WORKDIR /app
 # Change permissions for the app directory
 RUN chown -R appuser:appuser /app
 
-COPY backend/package*.json ./
+COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the code
-COPY backend ./ 
-COPY kafka/producer_app.py ./
+COPY . ./ 
 
 # Switch to non-root user
 USER appuser
