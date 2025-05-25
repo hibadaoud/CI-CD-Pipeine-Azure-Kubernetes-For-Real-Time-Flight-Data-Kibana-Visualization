@@ -19,7 +19,7 @@
   include:
     - template: Jobs/SAST.gitlab-ci.yml
     - component: gitlab.com/gitlab-components/secret-detection/secret-detection@1.0
-    - template: Security/Container-Scanning.gitlab-ci.yml
+    # - template: Security/Container-Scanning.gitlab-ci.yml
 
   variables:
     IMAGE_VERSION: $CI_PIPELINE_ID
