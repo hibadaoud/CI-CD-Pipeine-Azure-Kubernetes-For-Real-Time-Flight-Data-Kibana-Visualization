@@ -17,3 +17,4 @@ kafka/__pycache__
 spark/__pycache__
 spark/.env
 docker-compose-local.yml
+integration_test_local.py
