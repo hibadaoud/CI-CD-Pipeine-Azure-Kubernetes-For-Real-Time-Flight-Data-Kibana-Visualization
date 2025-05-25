@@ -9,7 +9,7 @@
   stages:
     - lint
     - test
-    - build_and_test_and_push
+    - build_test_and_push
     # - containerization
     # - dev-deploy
     # - stage-deploy
