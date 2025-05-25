@@ -212,9 +212,9 @@
       - python_env/bin/pip install --cache-dir=.cache/pip  requests  
       - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
     script:
-      - export DOCKER_BUILDKIT=1
-      - export COMPOSE_DOCKER_CLI_BUILD=1
-      - docker compose pull || true   # Pull for cache
+      # - export DOCKER_BUILDKIT=1
+      # - export COMPOSE_DOCKER_CLI_BUILD=1
+      # - docker compose pull || true   # Pull for cache
       - docker compose build 
       - docker compose up -d
       - chmod +x wait-for-services.sh
@@ -230,7 +230,6 @@
       - Res=$(curl -s http://localhost:9200/_count | jq '.count')
       - echo $Res
       - python_env/bin/python3 integration_test_after.py
-      - docker compose ps
       - docker compose down
       - docker compose push
         
