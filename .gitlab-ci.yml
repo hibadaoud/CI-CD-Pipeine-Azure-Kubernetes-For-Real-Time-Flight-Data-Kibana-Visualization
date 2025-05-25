@@ -207,7 +207,7 @@
       paths:
          - .cache/pip/
     before_script:
-      - apk add --no-cache python3 py3-pip curl
+      - apk add --no-cache python3 py3-pip curl jq
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip  requests  
       - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
@@ -227,7 +227,7 @@
       - if echo "$RESPONSE" | grep -q "RUNNING"; then echo "The exexutor on worker-2 is RUNNING."; else echo "The exexutor on worker-2 is not running" && exit 1; fi  
       - python_env/bin/python3 integration_test.py
       - docker logs backend-cntr 
-      - Res=$(curl -s http://localhost:9200/_count | grep -o '"count":[0-9]*' | grep -o '[0-9]*')
+      - Res=$(curl -s http://localhost:9200/_count | jq '.count')
       - echo $Res
       # - docker compose ps
       # - docker compose down
