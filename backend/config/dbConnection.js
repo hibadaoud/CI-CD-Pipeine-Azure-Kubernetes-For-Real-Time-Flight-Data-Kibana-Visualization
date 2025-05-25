@@ -3,7 +3,7 @@
     const connectDb = async()=>{
         try{
             const MONGO_URI = process.env.MONGO_URI;
-            mongoose.connect(
+            await mongoose.connect(
               MONGO_URI,
               {
                 user: process.env.MONGO_USER,

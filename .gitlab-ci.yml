@@ -162,6 +162,30 @@
   #   #     - elasticsearch-test-results.txt
   #   #   when: always
 
+  service-backend-test:
+    extends: .prepare_nodejs_environment
+    stage: test
+    # needs: unit-test-backend
+    services:
+      - name: mongo:latest
+        alias: mongo
+        pull_policy: always
+    variables:
+      MONGO_TEST_URI: 'mongodb://mongo:27017/auth_test_db?authSource=admin'
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+      MONGO_USER: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+    script:
+      - npm run test:service      
+    artifacts:
+      paths:
+        - backend/tests/service_test/jest-junit.xml
+      when: always
+      expire_in: 3 days
+      reports:
+        junit: backend/tests/service_test/jest-junit.xml
+
   compose_ci:
     stage: build_and_test_and_push
     image: docker:27.4.1
@@ -176,7 +200,6 @@
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
       MONGO_URI: 'mongodb://mongo:27017/auth_db?authSource=admin'
-      MONGO_TEST_URI: 'mongodb://mongo:27017/auth_test_db?authSource=admin'
       API_URL: $API_URL
       SECRET_KEY: $SECRET_KEY
       BACKEND_API_BASE: 'http://localhost:3000'
@@ -186,7 +209,7 @@
       paths:
          - .cache/pip/
     before_script:
-      - apk add --no-cache python3 py3-pip
+      - apk add --no-cache python3 py3-pip curl
       - python3 -m venv python_env
       - python_env/bin/pip install --cache-dir=.cache/pip  requests  
       - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"

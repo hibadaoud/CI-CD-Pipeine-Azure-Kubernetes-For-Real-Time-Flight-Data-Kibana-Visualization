@@ -245,7 +245,6 @@ services:
       - "3000:3000"
     environment:
       - MONGO_URI=${MONGO_URI}
-      - MONGO_TEST_URI=${MONGO_TEST_URI}
       - MONGO_USER=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - API_URL=${API_URL}
