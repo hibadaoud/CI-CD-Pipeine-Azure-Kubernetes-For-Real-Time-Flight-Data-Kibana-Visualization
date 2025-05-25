@@ -9,7 +9,7 @@ def fail(msg):
 def log(msg):
     print(f"[INFO] {msg}")
 
-time.sleep(40)
+time.sleep(120)
 
 # 6. Get new doc count
 try:
