@@ -12,7 +12,7 @@ def log(msg):
 # 1. Get initial ES doc count
 try:
     log("Getting initial Elasticsearch doc count...")
-    resp = requests.get('http://localhost:9200/esflight/_count', timeout=10)
+    resp = requests.get('http://docker:9200/esflight/_count', timeout=10)
     resp.raise_for_status()
     initial_count = resp.json().get('count', None)
     log(f"Initial doc count: {initial_count}")
@@ -24,7 +24,7 @@ except Exception as e:
 # 2. Simulate user registration
 try:
     log("Registering test user...")
-    register = requests.post('http://localhost:3000/register', json={
+    register = requests.post('http://docker:3000/register', json={
         "email": "test@test.com",
         "password": "StrongP@ss1"
     }, timeout=10)
@@ -37,7 +37,7 @@ except Exception as e:
 # 3. Simulate user login
 try:
     log("Logging in test user...")
-    login = requests.post('http://localhost:3000/login', json={
+    login = requests.post('http://docker:3000/login', json={
         "email": "test@test.com",
         "password": "StrongP@ss1"
     }, timeout=10)
@@ -54,7 +54,7 @@ except Exception as e:
 # 4. Access dashboard (simulate producer trigger)
 try:
     log("Accessing dashboard endpoint (triggers producer)...")
-    dashboard = requests.get('http://localhost:3000/dashboard', headers={
+    dashboard = requests.get('http://docker:3000/dashboard', headers={
         "Authorization": f"Bearer {token}"
     }, timeout=20)
     log(f"Dashboard status: {dashboard.status_code}, response: {dashboard.text}")
@@ -70,7 +70,7 @@ time.sleep(20)
 # 6. Get new doc count
 try:
     log("Getting new Elasticsearch doc count...")
-    resp = requests.get('http://localhost:9200/esflight/_count', timeout=10)
+    resp = requests.get('http://docker:9200/esflight/_count', timeout=10)
     resp.raise_for_status()
     new_count = resp.json().get('count', None)
     log(f"New doc count: {new_count}")
