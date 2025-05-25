@@ -165,7 +165,8 @@
   service-backend-test:
     extends: .prepare_nodejs_environment
     stage: test
-    needs: unit-test-backend
+    needs: 
+      - unit-test-backend
     services:
       - name: mongo:latest
         alias: mongo
