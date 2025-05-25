@@ -194,13 +194,16 @@
       - export DOCKER_BUILDKIT=1
       - export COMPOSE_DOCKER_CLI_BUILD=1
       - docker compose pull || true   # Pull for cache
-      - docker compose build 
+      # - docker compose build 
       - docker compose up -d
       - chmod +x wait-for-services.sh
       - ./wait-for-services.sh
+      - RESPONSE=$(curl http://docker:9090 )
+      - echo $RESPONSE 
+      - docker logs spark-job-submit
       - python_env/bin/python3 integration_test.py
-      - docker compose ps
-      - docker compose down
-      - docker compose push
+      # - docker compose ps
+      # - docker compose down
+      # - docker compose push
         
     
