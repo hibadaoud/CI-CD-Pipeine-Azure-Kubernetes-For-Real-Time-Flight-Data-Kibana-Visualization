@@ -62,11 +62,11 @@ try:
         fail(f"Dashboard failed: {dashboard.text}")
 except Exception as e:
     fail(f"Dashboard request failed: {e}")
-sys.exit(0)
 
-# # 5. Wait for Spark to process and ES to update
-# log("Waiting 20 seconds for Spark/ES pipeline to process data...")
-# time.sleep(20)
+# 5. Wait for Spark to process and ES to update
+log("Waiting 20 seconds for Spark/ES pipeline to process data...")
+time.sleep(40)
+sys.exit(0)
 
 # # 6. Get new doc count
 # try:

@@ -226,6 +226,9 @@
       - - RESPONSE=$(curl http://docker:8082 )
       - if echo "$RESPONSE" | grep -q "RUNNING"; then echo "The exexutor on worker-2 is RUNNING."; else echo "The exexutor on worker-2 is not running" && exit 1; fi  
       - python_env/bin/python3 integration_test.py
+      - docker logs backend-cntr 
+      - Res=$(curl -s http://localhost:9200/_count | grep -o '"count":[0-9]*' | grep -o '[0-9]*')
+      - echo $Res
       # - docker compose ps
       # - docker compose down
       # - docker compose push
