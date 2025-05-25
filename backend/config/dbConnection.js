@@ -10,7 +10,7 @@
                 pass: process.env.MONGO_PASSWORD,
               }
             );
-            // console.log("Database connected")
+            console.log("Database connected")
             // console.log("Database connected:",process.env.DB_NAME)
         }catch(err){
             console.error("Database connection error:", err);
