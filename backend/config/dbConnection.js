@@ -1,16 +1,16 @@
     const mongoose = require("mongoose");
 
     const connectDb = async()=>{
+        const MONGO_URI = process.env.MONGO_URI;
         try{
-            const MONGO_URI = process.env.MONGO_URI;
             await mongoose.connect(
               MONGO_URI,
               {
                 user: process.env.MONGO_USER,
                 pass: process.env.MONGO_PASSWORD,
               }
-            )
-            console.log("Database connected")
+            );
+            // console.log("Database connected")
             // console.log("Database connected:",process.env.DB_NAME)
         }catch(err){
             console.error("Database connection error:", err);

@@ -174,8 +174,6 @@
       MONGO_TEST_URI: 'mongodb://mongo:27017/auth_test_db?authSource=admin'
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
-      MONGO_USER: $MONGO_INITDB_ROOT_USERNAME
-      MONGO_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
     script:
       - npm run test:service      
     artifacts:

@@ -10,8 +10,8 @@ beforeAll(async() => {
 	try{
 	  const mongoUri = process.env.MONGO_TEST_URI ;
     options = {
-      user: process.env.MONGO_USER,
-      pass: process.env.MONGO_PASSWORD,
+      user: process.env.MONGO_INITDB_ROOT_USERNAME,
+      pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
 			connectTimeoutMS: 10000, // Connection timeout in milliseconds
      	family: 4, // Force IPv4
     };     
