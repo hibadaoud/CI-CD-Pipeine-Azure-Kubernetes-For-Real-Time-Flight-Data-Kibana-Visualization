@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: zookeeper
+  
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    
+    spec:
+      containers:
+      - name: zookeeper-cntr
+        image: docker.io/bitnami/zookeeper:3.8
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ALLOW_ANONYMOUS_LOGIN
+          value: "yes"
+        - name: ZOO_4LW_COMMANDS_WHITELIST
+          value: "ruok"
+        ports:
+        - containerPort: 2181
+        readinessProbe:
+          exec:
+            command: ['sh', '-c', 'echo ruok | nc localhost 2181 | grep imok']
+          initialDelaySeconds: 1      # Wait 1s after container start before first probe
+          periodSeconds: 10          # Check every 5 seconds
+          timeoutSeconds: 5            # Each probe waits up to 5 seconds for a response
+          failureThreshold: 3          # If 3 consecutive failures, pod is restarted
+        
+        livenessProbe:
+          exec:
+            command: ['sh', '-c', 'echo ruok | nc localhost 2181 | grep imok']
+          initialDelaySeconds: 1      # Wait 1s after container start before first probe
+          periodSeconds: 10          # Check every 5 seconds
+          timeoutSeconds: 5            # Each probe waits up to 5 seconds for a response
+          failureThreshold: 3          # If 3 consecutive failures, pod is restarted
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  labels:
+    app: zookeeper
+
+spec:
+  type: ClusterIP
+  selector:
+    app: zookeeper
+  ports:
+  - port: 2181
+    targetPort: 2181   

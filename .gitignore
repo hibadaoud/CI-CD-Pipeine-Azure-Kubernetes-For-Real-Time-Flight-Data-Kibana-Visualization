@@ -18,3 +18,6 @@ spark/__pycache__
 spark/.env
 docker-compose-local.yml
 integration_test_local.py
+kubectl
+kubectl.sha256
+kind-multi-node.yaml

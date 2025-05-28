@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      initContainers:
+      - name: init-elasticsearch
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z elasticsearch 9200; do sleep 2; done']
+      containers:
+        - name: kibana-cntr
+          image: hiba25/flight-dash:kibana
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: ELASTICSEARCH_HOSTS
+            value: "http://elasticsearch:9200"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5601
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 5
+          readinessProbe:
+            failureThreshold: 5
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 5
+            httpGet:
+              path: /api/status
+              port: 5601
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          # securityContext:
+          #   privileged: true
+          ports:
+            - containerPort: 5601      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-service
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 5601
+      targetPort: 5601
+  selector:
+    app: kibana
+  # publishNotReadyAddresses: true
+  # sessionAffinity: None

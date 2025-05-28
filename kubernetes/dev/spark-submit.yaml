@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-submit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-submit
+  template:
+    metadata:
+      labels:
+        app: spark-submit
+    spec:
+      containers:
+      - name: spark-submit-cntr
+        image: hiba25/flight-dash:spark
+        imagePullPolicy: IfNotPresent
+        command: ["/opt/bitnami/spark/bin/spark-submit",
+                    "--master", "spark://spark-master-svc:7077",
+                    "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.4,org.apache.kafka:kafka-clients:3.2.3,org.elasticsearch:elasticsearch-spark-30_2.12:8.8.2,commons-httpclient:commons-httpclient:3.1",
+                    "--total-executor-cores", "1",
+                    "--executor-memory", "1g",
+                    "/opt/bitnami/spark/spark_stream.py"]
+        env:
+        - name: HADOOP_USER_NAME
+          value: "spark"
+      initContainers:
+      - name: init-spark-master
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z spark-master-svc 7077; do sleep 2; done']
+      - name: init-spark-worker
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z spark-worker-svc 8081; do sleep 2; done']
+      - name: init-kafka
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z kafka 9092; do sleep 2; done']
+      - name: init-elasticsearch
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z elasticsearch 9200; do sleep 2; done']
+      
+

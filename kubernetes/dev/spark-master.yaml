@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-master
+  template:
+    metadata:
+      labels:
+        app: spark-master
+    spec:
+      containers:
+      - name: spark-master-cntr
+        image: hiba25/flight-dash:spark
+        imagePullPolicy: IfNotPresent
+
+        command:
+          - /opt/bitnami/spark/bin/spark-class
+          - org.apache.spark.deploy.master.Master
+        ports:
+        - containerPort: 8080
+        - containerPort: 7077
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10     # Wait 1s after container start before first probe
+          periodSeconds: 5             # Check every 5 seconds
+          timeoutSeconds: 5            # Each probe waits up to 5 seconds for a response
+          failureThreshold: 3          # If 3 consecutive failures, pod is restarted
+    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-master-svc
+  labels:
+    app: spark-master
+spec:
+  selector:
+    app: spark-master
+  ports:
+  - name: browser
+    port: 8080
+    targetPort: 8080
+  - name: rpc
+    port: 7077
+    targetPort: 7077
