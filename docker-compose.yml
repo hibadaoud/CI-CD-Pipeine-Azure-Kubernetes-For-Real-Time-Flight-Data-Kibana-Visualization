@@ -22,8 +22,8 @@ services:
     container_name: kafka-cntr
     restart: always
     image: docker.io/bitnami/kafka:3.3
-    ports:
-      - "9093:9093"
+    # ports:
+    #   - "9093:9093"
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
