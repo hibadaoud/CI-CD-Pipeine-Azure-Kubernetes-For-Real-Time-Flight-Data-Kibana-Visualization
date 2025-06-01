@@ -18,7 +18,7 @@ spec:
         command: ['sh', '-c', 'until nc -z elasticsearch 9200; do sleep 2; done']
       containers:
         - name: kibana-cntr
-          image: hiba25/flight-dash:kibana
+          image: hiba25/flight-dash:kibana-k8s
           imagePullPolicy: IfNotPresent
           env:
           - name: ELASTICSEARCH_HOSTS
@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kibana-service
+  name: kibana
 spec:
   type: NodePort
   ports:

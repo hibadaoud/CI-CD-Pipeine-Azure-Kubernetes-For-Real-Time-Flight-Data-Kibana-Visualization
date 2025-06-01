@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: zookeeper
 spec:
@@ -40,7 +40,17 @@ spec:
           periodSeconds: 10          # Check every 5 seconds
           timeoutSeconds: 5            # Each probe waits up to 5 seconds for a response
           failureThreshold: 3          # If 3 consecutive failures, pod is restarted
-  
+        volumeMounts:
+            - name: zookeeper-data
+              mountPath: /bitnami/zookeeper
+  volumeClaimTemplates:
+    - metadata:
+        name: zookeeper-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 500Mi
 ---
 apiVersion: v1
 kind: Service
@@ -48,9 +58,8 @@ metadata:
   name: zookeeper
   labels:
     app: zookeeper
-
 spec:
-  type: ClusterIP
+  clusterIP: None
   selector:
     app: zookeeper
   ports:

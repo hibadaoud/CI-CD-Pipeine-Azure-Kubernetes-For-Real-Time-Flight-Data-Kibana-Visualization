@@ -16,12 +16,28 @@ spec:
       - name: spark-submit-cntr
         image: hiba25/flight-dash:spark
         imagePullPolicy: IfNotPresent
-        command: ["/opt/bitnami/spark/bin/spark-submit",
-                    "--master", "spark://spark-master-svc:7077",
-                    "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.4,org.apache.kafka:kafka-clients:3.2.3,org.elasticsearch:elasticsearch-spark-30_2.12:8.8.2,commons-httpclient:commons-httpclient:3.1",
-                    "--total-executor-cores", "1",
-                    "--executor-memory", "1g",
-                    "/opt/bitnami/spark/spark_stream.py"]
+        # command: ["/opt/bitnami/spark/bin/spark-submit",
+        #             "--master", "spark://spark-master-svc:7077",
+        #             "--conf", "spark.driver.host=$(hostname -i)",
+        #             "--conf", "spark.driver.bindAddress=0.0.0.0",
+        #             "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.4,org.apache.kafka:kafka-clients:3.2.3,org.elasticsearch:elasticsearch-spark-30_2.12:8.8.2,commons-httpclient:commons-httpclient:3.1",
+        #             "--total-executor-cores", "2",
+        #             "--executor-memory", "1g",
+        #             "/opt/bitnami/spark/spark_stream.py"]
+        command:
+        - sh
+        - -c
+        - |
+          /opt/bitnami/spark/bin/spark-submit \
+            --master spark://spark-master-svc:7077 \
+            --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.4,org.apache.kafka:kafka-clients:3.2.3,org.elasticsearch:elasticsearch-spark-30_2.12:8.8.2,commons-httpclient:commons-httpclient:3.1 \
+            --total-executor-cores 2 \
+            --executor-memory 1g \
+            --conf spark.driver.host=$(hostname -i) \
+            --conf spark.driver.bindAddress=0.0.0.0 \
+            --conf spark.driver.port=7078 \
+            --conf spark.driver.blockManager.port=7079 \
+            /opt/bitnami/spark/spark_stream.py
         env:
         - name: HADOOP_USER_NAME
           value: "spark"
@@ -39,4 +55,23 @@ spec:
         image: busybox:1.28
         command: ['sh', '-c', 'until nc -z elasticsearch 9200; do sleep 2; done']
       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-driver-svc
+spec:
+  selector:
+    app: spark-submit
+  ports:
+    - name: driver
+      port: 7078          
+      targetPort: 7078
+    - name: blockmanager   #to shuffle and exchange data between driver and executors.
+      port: 7079          
+      targetPort: 7079
+    - name: ui
+      port: 4040
+      targetPort: 4040
+  type: ClusterIP
 

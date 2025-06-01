@@ -74,7 +74,7 @@ router.get('/dashboard', authenticateToken, (_req, res) => {
 
 router.post('/start-producer', (_req, res) => {
   const scriptPath = path.join(__dirname, 'producer_app.py');
-  const producer = spawn('python_env/bin/python3', [scriptPath]);
+  const producer = spawn('../python_env/bin/python', [ scriptPath]);
   let responded = false;
 
   producer.stdout.on('data', (data) => {
@@ -86,17 +86,19 @@ router.post('/start-producer', (_req, res) => {
     }
   });
 
-  producer.stderr.on('data', (data) => {});
+  producer.stderr.on('data', (data) => {
+      console.error(`Producer stderr: ${data.toString()}`);
+  });
 
   producer.on('close', (code) => {
     if (responded) return;
     responded = true;
     if (code === 0) {
-      console.log('Producer completed successfully but but did not output expected message.');
-      res.status(200).json({ message: 'Producer completed but did not output expected message.' });
+        console.log('Producer completed successfully but but did not output expected message.');
+        res.status(200).json({ message: 'Access granted & Producer completed but did not output expected message.' });
     } else {
-      console.error(`Producer exited with code ${code}`);
-      res.status(500).json({ error: 'Producer exited with errors' });
+        console.error(`Producer exited with code ${code}`);
+        res.status(500).json({ error: 'Producer exited with errors' });
     }
   });
 });

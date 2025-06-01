@@ -4,7 +4,8 @@
 
 # Function to check if Kibana is ready
 check_kibana_ready() {
-    until curl -s http://kibana-cntr:5601; do
+    #change ti kbana-cntr
+    until curl -s http://kibana:5601; do
         echo "Waiting for Kibana..."
         sleep 3
     done
@@ -16,8 +17,9 @@ sleep 10
 
 # Path to the NDJSON file
 file_path="/usr/share/kibana/scripts/export.ndjson"
-kibana_url="http://localhost:5601/api/saved_objects/_import"
-find_url="http://localhost:5601/api/saved_objects/index-pattern/23cd45e3-6e92-4e1e-a11c-7f3a3a708bf8"
+#change to localhost
+kibana_url="http://kibana:5601/api/saved_objects/_import"
+find_url="http://kibana:5601/api/saved_objects/index-pattern/23cd45e3-6e92-4e1e-a11c-7f3a3a708bf8"
 
 # Ensure the file exists
 if [[ ! -f "$file_path" ]]; then
