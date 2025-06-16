@@ -300,47 +300,47 @@
       
         
   # save_docker_images:
-    stage: build_test_and_push
-    image: docker:27.4.1
-    dependencies: []
-    needs:
-      - compose_ci
-    services:
-      - docker:27.4.1-dind 
-    variables:
-      DOCKER_HOST: tcp://docker:2376
-      DOCKER_TLS_CERTDIR: "/certs"
-      DOCKER_BUILDKIT: 1
-      COMPOSE_DOCKER_CLI_BUILD: 1
-    before_script:
-      - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    script:
-      - docker compose pull || true   # Pull for cache
-      - mkdir -p docker_images
-      - docker save ${CI_REGISTRY_IMAGE}/flight-dash-kibana:${IMAGE_VERSION} > docker_images/flight-dash-kibana.tar
-      - docker save ${CI_REGISTRY_IMAGE}/flight-dash-elasticsearch:${IMAGE_VERSION} > docker_images/flight-dash-elasticsearch.tar
-      - docker save ${CI_REGISTRY_IMAGE}/flight-dash-backend:${IMAGE_VERSION} > docker_images/flight-dash-backend.tar
-      - docker save ${CI_REGISTRY_IMAGE}/flight-dash-spark:${IMAGE_VERSION} > docker_images/flight-dash-spark.tar
-      - docker save ${CI_REGISTRY_IMAGE}/flight-dash-frontend:${IMAGE_VERSION} > docker_images/flight-dash-frontend
-      - docker pull bitnami/kafka:3.3
-      - docker pull mongo:latest
-      - docker pull bitnami/zookeeper:3.8
-      - docker pull busybox
-      - docker save bitnami/zookeeper:3.8 > docker_images/zookeeper.tar
-      - docker save mongo:latest > docker_images/mongo.tar
-      - docker save bitnami/kafka:3.3 > docker_images/kafka.tar
-      - docker save busybox > docker_images/busybox.tar
-      - docker load -i docker_images/flight-dash-kibana.tar
-      - docker load -i docker_images/flight-dash-elasticsearch.tar
-      - docker load -i docker_images/flight-dash-backend.tar
-      - docker load -i docker_images/flight-dash-spark.tar
-      - docker load -i docker_images/flight-dash-frontend.tar
-      - docker load -i docker_images/zookeeper.tar
-      - docker load -i docker_images/mongo.tar
-      - docker load -i docker_images/kafka.tar
-      - docker load -i docker_images/busybox.tar
-    artifacts:
-      paths:
-        - docker_images
-      when: on_success
-      expire_in: 30 days
+    # stage: build_test_and_push
+    # image: docker:27.4.1
+    # dependencies: []
+    # needs:
+    #   - compose_ci
+    # services:
+    #   - docker:27.4.1-dind 
+    # variables:
+    #   DOCKER_HOST: tcp://docker:2376
+    #   DOCKER_TLS_CERTDIR: "/certs"
+    #   DOCKER_BUILDKIT: 1
+    #   COMPOSE_DOCKER_CLI_BUILD: 1
+    # before_script:
+    #   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    # script:
+    #   - docker compose pull || true   # Pull for cache
+    #   - mkdir -p docker_images
+    #   - docker save ${CI_REGISTRY_IMAGE}/flight-dash-kibana:${IMAGE_VERSION} > docker_images/flight-dash-kibana.tar
+    #   - docker save ${CI_REGISTRY_IMAGE}/flight-dash-elasticsearch:${IMAGE_VERSION} > docker_images/flight-dash-elasticsearch.tar
+    #   - docker save ${CI_REGISTRY_IMAGE}/flight-dash-backend:${IMAGE_VERSION} > docker_images/flight-dash-backend.tar
+    #   - docker save ${CI_REGISTRY_IMAGE}/flight-dash-spark:${IMAGE_VERSION} > docker_images/flight-dash-spark.tar
+    #   - docker save ${CI_REGISTRY_IMAGE}/flight-dash-frontend:${IMAGE_VERSION} > docker_images/flight-dash-frontend
+    #   - docker pull bitnami/kafka:3.3
+    #   - docker pull mongo:latest
+    #   - docker pull bitnami/zookeeper:3.8
+    #   - docker pull busybox
+    #   - docker save bitnami/zookeeper:3.8 > docker_images/zookeeper.tar
+    #   - docker save mongo:latest > docker_images/mongo.tar
+    #   - docker save bitnami/kafka:3.3 > docker_images/kafka.tar
+    #   - docker save busybox > docker_images/busybox.tar
+    #   - docker load -i docker_images/flight-dash-kibana.tar
+    #   - docker load -i docker_images/flight-dash-elasticsearch.tar
+    #   - docker load -i docker_images/flight-dash-backend.tar
+    #   - docker load -i docker_images/flight-dash-spark.tar
+    #   - docker load -i docker_images/flight-dash-frontend.tar
+    #   - docker load -i docker_images/zookeeper.tar
+    #   - docker load -i docker_images/mongo.tar
+    #   - docker load -i docker_images/kafka.tar
+    #   - docker load -i docker_images/busybox.tar
+    # artifacts:
+    #   paths:
+    #     - docker_images
+    #   when: on_success
+    #   expire_in: 30 days
