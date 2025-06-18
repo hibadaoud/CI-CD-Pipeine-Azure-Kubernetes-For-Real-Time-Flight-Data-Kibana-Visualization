@@ -12,31 +12,24 @@ spec:
       labels:
         app: spark-master
     spec:
-      volumes:
-        - name: spark-logs-pvc
-          persistentVolumeClaim:
-            claimName: spark-logs-pvc
       containers:
       - name: spark-master-cntr
-        image: hiba25/flight-dash:spark
+        image: ${CI_REGISTRY_IMAGE}/flight-dash-spark:${IMAGE_VERSION}
         imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - name: spark-logs-pvc
-            mountPath: /mnt/spark-logs
+
         command:
           - /opt/bitnami/spark/bin/spark-class
           - org.apache.spark.deploy.master.Master
         ports:
         - containerPort: 8080
         - containerPort: 7077
-        # resources:
-        #   requests:
-        #     cpu: "100m"
-        #     memory: "350Mi"
-        #   limits:
-        #     cpu: "100m"
-        #     memory: "512Mi"
-
+        resources:
+            limits:
+              memory: "400Mi"
+              cpu: "64m"
+            requests:
+              memory: "300Mi"
+              cpu: "32m"
         readinessProbe:
           httpGet:
             path: /

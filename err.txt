@@ -1,0 +1,46 @@
+<!DOCTYPE html><html>
+      <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/static/bootstrap.min.css" type="text/css"/><link rel="stylesheet" href="/static/vis-timeline-graph2d.min.css" type="text/css"/><link rel="stylesheet" href="/static/webui.css" type="text/css"/><link rel="stylesheet" href="/static/timeline-view.css" type="text/css"/><script src="/static/sorttable.js"></script><script src="/static/jquery-3.5.1.min.js"></script><script src="/static/vis-timeline-graph2d.min.js"></script><script src="/static/bootstrap.bundle.min.js"></script><script src="/static/initialize-tooltips.js"></script><script src="/static/table.js"></script><script src="/static/timeline-view.js"></script><script src="/static/log-view.js"></script><script src="/static/webui.js"></script><script>setUIRoot('')</script>
+        
+        <link rel="shortcut icon" href="/static/spark-logo-77x50px-hd.png"></link>
+        <title>stdout log page for app-20250617191445-0002/2</title>
+      </head>
+      <body>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <h3 style="vertical-align: middle; display: inline-block;">
+                <a style="text-decoration: none" href="/">
+                  <img src="/static/spark-logo-77x50px-hd.png"/>
+                  <span class="version" style="margin-right: 15px;">3.2.4</span>
+                </a>
+                stdout log page for app-20250617191445-0002/2
+              </h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+        <p><a href="http://spark-master-74c6766c7c-jjxtm:8080">Back to Master</a></p>
+        <span id="log-data">
+        Showing 0 Bytes: 0 - 0 of 0
+      </span>
+        <div class="log-content" style="height:80vh; overflow:auto; padding:5px;">
+          <div><button type="button" onclick="loadMore()" class="log-more-btn btn btn-secondary">
+        Load More
+      </button></div>
+          <pre>Error: invalid log directory /opt/bitnami/spark/work/app-20250617191445-0002/2/</pre>
+          <div class="no-new-alert alert alert-info" style="display: none;">
+        End of Log
+      </div>
+          <div><button type="button" onclick="loadNew()" class="log-new-btn btn btn-secondary">
+        Load New
+      </button></div>
+        </div>
+        <script>window.onload = initLogPage('?appId=app-20250617191445-0002&executorId=2&logType=stdout', 0, 0, 0, 0, 102400);</script>
+      </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>

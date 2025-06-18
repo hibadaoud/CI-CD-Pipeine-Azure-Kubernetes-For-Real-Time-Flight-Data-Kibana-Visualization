@@ -35,13 +35,12 @@ spec:
             - name: mongo-data
               mountPath: /data/db
           resources:
-            requests:
-              cpu: "50m"
-              memory: "64Mi"
             limits:
-              cpu: "500m"
-              memory: "256Mi"
-
+              memory: "200Mi"
+              cpu: "128m"
+            requests:
+              memory: "128Mi"
+              cpu: "32m" 
           readinessProbe:
             exec:
               command:

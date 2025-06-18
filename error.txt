@@ -1,0 +1,61 @@
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/opt/bitnami/spark/jars/spark-unsafe_2.12-3.2.4.jar) to constructor java.nio.DirectByteBuffer(long,int)
+WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+:: loading settings :: url = jar:file:/opt/bitnami/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /opt/bitnami/spark/.ivy2/cache
+The jars for the packages stored in: /opt/bitnami/spark/.ivy2/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+org.apache.kafka#kafka-clients added as a dependency
+org.elasticsearch#elasticsearch-spark-30_2.12 added as a dependency
+commons-httpclient#commons-httpclient added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-1a03be0b-6caa-422d-a7ff-e7c93d196da3;1.0
+	confs: [default]
+	found org.apache.spark#spark-sql-kafka-0-10_2.12;3.2.4 in central
+	found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.2.4 in central
+	found org.apache.hadoop#hadoop-client-runtime;3.3.1 in central
+	found org.spark-project.spark#unused;1.0.0 in central
+	found org.apache.hadoop#hadoop-client-api;3.3.1 in central
+	found org.apache.htrace#htrace-core4;4.1.0-incubating in central
+	found org.slf4j#slf4j-api;1.7.30 in central
+	found commons-logging#commons-logging;1.1.3 in central
+	found com.google.code.findbugs#jsr305;3.0.0 in central
+	found org.apache.commons#commons-pool2;2.6.2 in central
+	found org.apache.kafka#kafka-clients;3.2.3 in central
+	found com.github.luben#zstd-jni;1.5.2-1 in central
+	found org.lz4#lz4-java;1.8.0 in central
+	found org.xerial.snappy#snappy-java;1.1.8.4 in central
+	found org.slf4j#slf4j-api;1.7.36 in central
+	found org.elasticsearch#elasticsearch-spark-30_2.12;8.8.2 in central
+	found org.scala-lang#scala-reflect;2.12.8 in central
+	found javax.xml.bind#jaxb-api;2.3.1 in central
+	found com.google.protobuf#protobuf-java;2.5.0 in central
+	found org.apache.spark#spark-yarn_2.12;3.2.4 in central
+	found commons-httpclient#commons-httpclient;3.1 in central
+	found commons-codec#commons-codec;1.2 in central
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.2.4/spark-sql-kafka-0-10_2.12-3.2.4.jar ...
+	[SUCCESSFUL ] org.apache.spark#spark-sql-kafka-0-10_2.12;3.2.4!spark-sql-kafka-0-10_2.12.jar (1563ms)
+downloading https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/3.2.3/kafka-clients-3.2.3.jar ...
+	[SUCCESSFUL ] org.apache.kafka#kafka-clients;3.2.3!kafka-clients.jar (13637ms)
+downloading https://repo1.maven.org/maven2/org/elasticsearch/elasticsearch-spark-30_2.12/8.8.2/elasticsearch-spark-30_2.12-8.8.2.jar ...
+	[SUCCESSFUL ] org.elasticsearch#elasticsearch-spark-30_2.12;8.8.2!elasticsearch-spark-30_2.12.jar (3282ms)
+downloading https://repo1.maven.org/maven2/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar ...
+	[SUCCESSFUL ] commons-httpclient#commons-httpclient;3.1!commons-httpclient.jar (1207ms)
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.12/3.2.4/spark-token-provider-kafka-0-10_2.12-3.2.4.jar ...
+	[SUCCESSFUL ] org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.2.4!spark-token-provider-kafka-0-10_2.12.jar (108ms)
+downloading https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar ...
+	[SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.0!jsr305.jar (32ms)
+downloading https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.6.2/commons-pool2-2.6.2.jar ...
+	[SUCCESSFUL ] org.apache.commons#commons-pool2;2.6.2!commons-pool2.jar (198ms)
+downloading https://repo1.maven.org/maven2/org/spark-project/spark/unused/1.0.0/unused-1.0.0.jar ...
+	[SUCCESSFUL ] org.spark-project.spark#unused;1.0.0!unused.jar (14ms)
+downloading https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/3.3.1/hadoop-client-runtime-3.3.1.jar ...
+	[SUCCESSFUL ] org.apache.hadoop#hadoop-client-runtime;3.3.1!hadoop-client-runtime.jar (78708ms)
+downloading https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/3.3.1/hadoop-client-api-3.3.1.jar ...
+	[SUCCESSFUL ] org.apache.hadoop#hadoop-client-api;3.3.1!hadoop-client-api.jar (49868ms)
+downloading https://repo1.maven.org/maven2/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar ...
+	[SUCCESSFUL ] org.apache.htrace#htrace-core4;4.1.0-incubating!htrace-core4.jar (6451ms)
+downloading https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar ...
+	[SUCCESSFUL ] commons-logging#commons-logging;1.1.3!commons-logging.jar (361ms)
+downloading https://repo1.maven.org/maven2/com/github/luben/zstd-jni/1.5.2-1/zstd-jni-1.5.2-1.jar ...

@@ -14,14 +14,8 @@ spec:
     spec:
       containers:
       - name: spark-submit-cntr
-        image: hiba25/flight-dash:spark
+        image: ${CI_REGISTRY_IMAGE}/flight-dash-spark:${IMAGE_VERSION}
         imagePullPolicy: IfNotPresent
-        volumeMounts:
-          # - name: spark-checkpoints
-          #   mountPath: /opt/bitnami/spark/tmp/checkpoint2
-          - name: spark-logs-pvc
-            mountPath: /mnt/spark-logs
-
         # command: ["/opt/bitnami/spark/bin/spark-submit",
         #             "--master", "spark://spark-master-svc:7077",
         #             "--conf", "spark.driver.host=$(hostname -i)",
@@ -43,27 +37,17 @@ spec:
             --conf spark.driver.bindAddress=0.0.0.0 \
             --conf spark.driver.port=7078 \
             --conf spark.driver.blockManager.port=7079 \
-            --conf spark.eventLog.enabled=true \
-            --conf spark.eventLog.dir="file:///mnt/spark-logs" \
             /opt/bitnami/spark/spark_stream.py
         env:
         - name: HADOOP_USER_NAME
           value: "spark"
-        # resources:
-        #     limits:
-        #       memory: "1.2Gi"
-        #       cpu: "900m"
-        #     requests:
-        #       memory: "800Mi"
-        #       cpu: "512m"
-      volumes:
-        # - name: spark-checkpoints
-        #   persistentVolumeClaim:
-        #     claimName: spark-checkpoints-pvc
-        - name: spark-logs-pvc
-          persistentVolumeClaim:
-            claimName: spark-logs-pvc
-
+        resources:
+            limits:
+              memory: "1.2Gi"
+              cpu: "900m"
+            requests:
+              memory: "800Mi"
+              cpu: "512m"
       initContainers:
       - name: init-spark-master
         image: busybox:1.28

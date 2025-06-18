@@ -27,20 +27,18 @@ def test_producer_app_fetch_and_produce(mock_get, MockProducer):
     # 2. Mock Kafka producer
     mock_producer_instance = MockProducer.return_value
     
-    producer_app.api_url = "http://fakeapi.com"  # Set any dummy value if needed
-    # Now, expect SystemExit because produce_from_api calls exit()
+    producer_app.api_url = "http://fakeapi.com"  
     with pytest.raises(SystemExit) as e:
         producer_app.produce_from_api()
-    assert e.value.code == 0  # Check that exit code is 0 (success)
+    assert e.value.code == 0  # success
 
     # 4. Check that produce() was called for each object in the response
     calls = mock_producer_instance.produce.call_args_list
-    assert len(calls) == 2  # There were 2 objects, so 2 Kafka messages should be sent
+    assert len(calls) == 2  
 
-    # 5. Check one of the calls' arguments
     first_call_args, first_call_kwargs = calls[0]
-    assert first_call_args[0] == 'flights'  # topic
-    assert first_call_kwargs['key'] == 'abc123'  # key from API response
+    assert first_call_args[0] == 'flights'  
+    assert first_call_kwargs['key'] == 'abc123'  
     # check the value content:
     import json
     value_data = json.loads(first_call_kwargs['value'])

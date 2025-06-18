@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend-cntr
-          image: hiba25/flight-dash:frontend
+          image: ${CI_REGISTRY_IMAGE}/flight-dash-frontend:${IMAGE_VERSION}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -22,13 +22,12 @@ spec:
             - name: BACKEND_API_BASE
               value: "http://localhost:3000"
           resources:
-              requests:
-                cpu: "5m"
-                memory: "32Mi"
-              limits:
-                cpu: "25m"
-                memory: "64Mi"
-
+            limits:
+              memory: "40Mi"
+              cpu: "30m"
+            requests:
+              memory: "20Mi"
+              cpu: "10m"
           readinessProbe:
             httpGet:
               path: /

@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: elasticsearch
 spec:
@@ -21,7 +21,7 @@ spec:
             privileged: true
       containers:
         - name: elasticsearch-cntr
-          image: hiba25/flight-dash:elasticsearch 
+          image: ${CI_REGISTRY_IMAGE}/flight-dash-elasticsearch:${IMAGE_VERSION}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9200
@@ -44,11 +44,11 @@ spec:
               mountPath: /bitnami/elasticsearch/data
           resources:
             limits:
-              memory: "4Gi"
-              cpu: "2"
-            requests:
-              memory: "2Gi"
+              memory: "1.5Gi"
               cpu: "1"
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
           # securityContext:
           #   privileged: true
           #   allowPrivilegeEscalation: true
@@ -86,7 +86,6 @@ kind: Service
 metadata:
   name: elasticsearch
 spec:
-  clusterIP: None
   selector:
     app: elasticsearch
   ports:

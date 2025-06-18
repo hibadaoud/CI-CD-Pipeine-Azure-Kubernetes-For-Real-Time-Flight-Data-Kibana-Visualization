@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-history-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-history-server
+  template:
+    metadata:
+      labels:
+        app: spark-history-server
+    spec:
+      containers:
+        - name: spark-history-server
+          image: hiba25/flight-dash:spark
+          imagePullPolicy: IfNotPresent
+          args: ["/opt/bitnami/spark/sbin/start-history-server.sh"]
+          env:
+            - name: SPARK_HISTORY_OPTS
+              value: "-Dspark.history.fs.logDirectory=file:///mnt/spark-logs"
+          ports:
+            - containerPort: 18080
+          volumeMounts:
+          - name: spark-logs-pvc
+            mountPath: /mnt/spark-logs
+      volumes:
+        - name: spark-logs-pvc
+          persistentVolumeClaim:
+            claimName: spark-logs-pvc

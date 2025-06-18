@@ -26,13 +26,12 @@ spec:
         ports:
         - containerPort: 2181
         resources:
-          requests:
-            cpu: "10m"
-            memory: "64Mi"
-          limits:
-            cpu: "100m"
-            memory: "256Mi"
-
+            limits:
+              memory: "200Mi"
+              cpu: "128m"
+            requests:
+              memory: "128Mi"
+              cpu: "32m"
         readinessProbe:
           exec:
             command: ['sh', '-c', 'echo ruok | nc localhost 2181 | grep imok']

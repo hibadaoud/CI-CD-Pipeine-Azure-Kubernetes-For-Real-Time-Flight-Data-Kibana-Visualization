@@ -18,18 +18,18 @@ spec:
         command: ['sh', '-c', 'until nc -z elasticsearch 9200; do sleep 2; done']
       containers:
         - name: kibana-cntr
-          image: hiba25/flight-dash:kibana-k8s
+          image: ${CI_REGISTRY_IMAGE}/flight-dash-kibana:${IMAGE_VERSION}
           imagePullPolicy: IfNotPresent
           env:
           - name: ELASTICSEARCH_HOSTS
             value: "http://elasticsearch:9200"
-          # resources:
-          #   limits:
-          #     memory: "700Mi"
-          #     cpu: "256m"
-          #   requests:
-          #     memory: "400Mi"
-          #     cpu: "128m"
+          resources:
+            limits:
+              memory: "700Mi"
+              cpu: "256m"
+            requests:
+              memory: "400Mi"
+              cpu: "128m"
           livenessProbe:
             httpGet:
               path: /

@@ -14,11 +14,8 @@ spec:
     spec:
       containers:
       - name: spark-worker-cntr
-        image: hiba25/flight-dash:spark
+        image: ${CI_REGISTRY_IMAGE}/flight-dash-spark:${IMAGE_VERSION}
         imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - name: spark-logs-pvc
-            mountPath: /mnt/spark-logs
         command:
           - /opt/bitnami/spark/bin/spark-class
           - org.apache.spark.deploy.worker.Worker
@@ -58,10 +55,6 @@ spec:
           periodSeconds: 5             # Check every 5 seconds
           timeoutSeconds: 5            # Each probe waits up to 5 seconds for a response
           failureThreshold: 3          # If 3 consecutive failures, pod is restarted
-      volumes:
-        - name: spark-logs-pvc
-          persistentVolumeClaim:
-            claimName: spark-logs-pvc
       initContainers:
       - name: init-spark-master
         image: busybox:1.28
