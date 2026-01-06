@@ -1,11 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: frontend-ingress
+  name: flight-dashboard-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
+  ingressClassName: webapprouting.kubernetes.azure.com 
   rules:
-    # - host: myapp.example.com
-    - http:
+    - host: flight-dashboard.nip.io
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -21,3 +24,7 @@ spec:
                 name: backend
                 port:
                   number: 3000
+  tls:
+    - hosts:
+      - flight-dashboard.nip.io
+      secretName: ingress-local-tls

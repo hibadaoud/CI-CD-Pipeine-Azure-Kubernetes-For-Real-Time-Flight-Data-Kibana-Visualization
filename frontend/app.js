@@ -1,4 +1,6 @@
-const API_BASE = window.BACKEND_API_BASE;
+// This allows you to use a full URL in CI/Local, 
+// but use the Ingress's relative path in Kubernetes.
+const API_BASE = window.BACKEND_API_BASE || "/api";
 
 // Validate Password on the Client Side
 // function validatePassword(password) {

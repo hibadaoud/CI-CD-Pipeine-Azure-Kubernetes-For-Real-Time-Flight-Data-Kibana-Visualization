@@ -21,3 +21,10 @@ integration_test_local.py
 kubectl
 kubectl.sha256
 kind-multi-node.yaml
+.gitlab-ci copy.yml
+tls.key
+tls.crt
+flight-dashboard.nip.io.pem
+flight-dashboard.nip.io-key.pem
+ilovepdf_pages-to-jpg/
+mkcert/

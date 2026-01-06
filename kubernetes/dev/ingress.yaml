@@ -1,23 +1,61 @@
-apiVersion: networking.k8s.io/v1
+
+apiVersion: networking.k8s.io/v1  
 kind: Ingress
 metadata:
-  name: frontend-ingress
+  name: flight-dashboard-ingress
+  # namespace: ${NAMESPACE}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  rules:
-    # - host: myapp.example.com
-    - http:
+    ingressClassName: nginx
+    # ingressClassName: webapprouting.kubernetes.azure.com 
+    rules:
+    - host: flight-dashboard.nip.io
+      http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 8080
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend
-                port:
-                  number: 3000
+        - path: / 
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend
+              port:
+                number: 8080
+        - path: /backend
+          pathType: Prefix
+          backend:
+            service:
+              name: backend
+              port:
+                number: 3000
+    tls:
+    - hosts:
+      - flight-dashboard.nip.io
+      secretName: ingress-local-tls-j7d4j
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: frontend-ingress
+# spec:
+#   rules:
+#     # - host: myapp.example.com
+#     - http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: frontend
+#                 port:
+#                   number: 8080
+#           - path: /api
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: backend
+#                 port:
+#                   number: 3000
