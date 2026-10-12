@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: zookeeper-cntr
-        image: docker.io/bitnami/zookeeper:3.8
+        image: docker.io/soldevelo/zookeeper:3.8
         imagePullPolicy: IfNotPresent
         env:
         - name: ALLOW_ANONYMOUS_LOGIN
